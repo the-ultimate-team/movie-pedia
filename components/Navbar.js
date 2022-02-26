@@ -5,6 +5,7 @@ import Image from "next/image";
 import logo from "../assets/Logo.png";
 
 const logoStyle = css`
+  margin: 15px 15px 0 0;
   width: 151px;
   height: 29px;
 `;
@@ -15,8 +16,8 @@ const Navbar = () => {
         <div>
           <div>
             <ul>
-              <li>
-                <Image src={logo} css={logoStyle} />
+              <li css={logoStyle}>
+                <Image src={logo} />
               </li>
             </ul>
           </div>
