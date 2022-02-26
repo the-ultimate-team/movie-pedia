@@ -1,0 +1,20 @@
+{
+  "movie-pedia functional component": {
+    "prefix": "mfc",
+    "body": [
+      "import React from 'react';",
+      "import { css, jsx } from '@emotion/react';",
+      "",
+      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "  return (",
+      "    <div>",
+      "      ${2}",
+      "    </div>",
+      "  );",
+      "};",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}};"
+    ],
+    "description": "movie-pedia functional component"
+  }
+}
