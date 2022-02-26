@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
-import Card from "../components/MovieHome/Card";
-import Label from "../components/Label";
 import Link from "next/link";
+import ContentListWrap from "../components/ContentList/ContentListWrap";
 
 export default function Home() {
   return (
@@ -15,8 +14,7 @@ export default function Home() {
       <Link href="/Nav">
         <a>네비게이션</a>
       </Link>
-      <Label />
-      <Card />
+      <ContentListWrap />
     </div>
   );
 }
