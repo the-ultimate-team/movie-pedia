@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Card from "../components/MovieHome/Card";
 import Label from "../components/Label";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       </Head>
       <Label />
       <Card />
+      <Navbar />
     </div>
   );
 }
