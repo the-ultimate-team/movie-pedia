@@ -15,6 +15,8 @@ export default function Home() {
       <Link href="/Nav">
         <a>네비게이션</a>
       </Link>
+      <Label />
+      <Card />
     </div>
   );
 }
