@@ -11,7 +11,7 @@ const ImageStyle = css`
   width: 100%;
   height: 100%;
   background: gray;
-  opacity: 0.5;
+  opacity: 0.6;
 `;
 
 const Card = () => {
