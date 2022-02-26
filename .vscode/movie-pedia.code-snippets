@@ -3,6 +3,7 @@
     "prefix": "mfc",
     "body": [
       "import React from 'react';",
+      "/** @jsxImportSource @emotion/react */",
       "import { css, jsx } from '@emotion/react';",
       "",
       "const ${1:${TM_FILENAME_BASE}} = () => {",
