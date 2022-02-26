@@ -9,8 +9,12 @@ const WrapStyle = css`
 `;
 
 const ContentListUl = css`
-  list-style: none;
   display: flex;
+`;
+
+const ContentLi = css`
+  width: 20%;
+  padding: 8px;
 `;
 
 const ContentListWrap = () => {
@@ -19,19 +23,19 @@ const ContentListWrap = () => {
       <Label />
       <div>
         <ul css={ContentListUl}>
-          <li>
+          <li css={ContentLi}>
             <Card />
           </li>
-          <li>
+          <li css={ContentLi}>
             <Card />
           </li>
-          <li>
+          <li css={ContentLi}>
             <Card />
           </li>
-          <li>
+          <li css={ContentLi}>
             <Card />
           </li>
-          <li>
+          <li css={ContentLi}>
             <Card />
           </li>
         </ul>
