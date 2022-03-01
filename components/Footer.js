@@ -11,42 +11,44 @@ const Footer = () => {
         쌓였어요.
       </div>
       <section css={FooterInfoWrap}>
-        <div>
-          <ul css={UlFlexStyle}>
-            <li css={LiAfterStyle}>서비스 이용약관</li>
-            <li css={LiAfterStyle}>개인정보 처리방침</li>
-            <li>회사 안내</li>
-          </ul>
-          <ul css={UlFlexStyle}>
-            <li css={LiAfterStyle}>고객센터</li>
-            <li>cs@watchapedia.co.kr, 02-515-9985</li>
-          </ul>
-          <ul css={UlFlexStyle}>
-            <li css={LiAfterStyle}>광고문의</li>
-            <li>ad@watcha.com</li>
-          </ul>
-          <ul css={UlFlexStyle}>
-            <li>제휴 및 대외 협력&nbsp; </li>
-            <li>https://watcha.team/contact</li>
-          </ul>
-          <ul css={UlFlexStyle}>
-            <li css={LiAfterStyle}>주식회사 왓챠</li>
-            <li css={LiAfterStyle}>대표 박태훈</li>
-            <li>서울특별시 서초구 강남대로 343 신덕빌딩 3층</li>
-          </ul>
-          <ul css={UlFlexStyle}>
-            <li>사업자 등록 번호 211-88-66013</li>
-          </ul>
-          <ul css={UlFlexStyle}>
-            <li>WATCHA PEDIA&nbsp;</li>
-            <li>© 2021 by WATCHA, Inc. All rights reserved.</li>
-          </ul>
-        </div>
-        <div>
+        <div css={MaxWidthAuto}>
           <div>
-            <button css={ButtonStyle}>한국어</button>
+            <ul css={UlFlexStyle}>
+              <li css={LiAfterStyle}>서비스 이용약관</li>
+              <li css={LiAfterStyle}>개인정보 처리방침</li>
+              <li>회사 안내</li>
+            </ul>
+            <ul css={UlFlexStyle}>
+              <li css={LiAfterStyle}>고객센터</li>
+              <li>cs@watchapedia.co.kr, 02-515-9985</li>
+            </ul>
+            <ul css={UlFlexStyle}>
+              <li css={LiAfterStyle}>광고문의</li>
+              <li>ad@watcha.com</li>
+            </ul>
+            <ul css={UlFlexStyle}>
+              <li>제휴 및 대외 협력&nbsp; </li>
+              <li>https://watcha.team/contact</li>
+            </ul>
+            <ul css={UlFlexStyle}>
+              <li css={LiAfterStyle}>주식회사 왓챠</li>
+              <li css={LiAfterStyle}>대표 박태훈</li>
+              <li>서울특별시 서초구 강남대로 343 신덕빌딩 3층</li>
+            </ul>
+            <ul css={UlFlexStyle}>
+              <li>사업자 등록 번호 211-88-66013</li>
+            </ul>
+            <ul css={UlFlexStyle}>
+              <li>WATCHA PEDIA&nbsp;</li>
+              <li>© 2021 by WATCHA, Inc. All rights reserved.</li>
+            </ul>
           </div>
-          <div>폰트어썸 아이콘</div>
+          <div>
+            <div>
+              <button css={ButtonStyle}>한국어</button>
+            </div>
+            <div style={{ marginTop: "99px" }}>폰트어썸 아이콘</div>
+          </div>
         </div>
       </section>
     </footer>
@@ -71,14 +73,20 @@ const FooterGradeContent = css`
 
 const FooterInfoWrap = css`
   width: 100%;
-  display: flex;
+
   background-color: #1c1d1f;
-  padding: 20px 0 38px 110px;
-  display: inline-block;
+  padding: 20px 0 38px;
   color: #a5a5a7;
   font-size: 13px;
   letter-spacing: -0.3px;
   line-height: 22px;
+`;
+
+const MaxWidthAuto = css`
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const UlFlexStyle = css`
@@ -99,8 +107,6 @@ const LiAfterStyle = css`
 
 const FooterPosition = css`
   width: 100%;
-  position: absolute;
-  bottom: 0;
 `;
 
 const ButtonStyle = css`
