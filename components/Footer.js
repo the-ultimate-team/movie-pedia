@@ -1,6 +1,8 @@
 import React from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+// Import the FontAwesomeIcon component
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
   return (
@@ -47,7 +49,13 @@ const Footer = () => {
             <div>
               <button css={ButtonStyle}>한국어</button>
             </div>
-            <div style={{ marginTop: "99px" }}>폰트어썸 아이콘</div>
+            <div style={{ marginTop: "99px" }}>
+              <ul>
+                <li>
+                  <FontAwesomeIcon icon="fa-brands fa-facebook" />
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
