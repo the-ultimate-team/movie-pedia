@@ -5,13 +5,14 @@ import Image from "next/image";
 import logo from "../assets/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Container from "./responsiveLayout/Container";
 
 const Navbar = () => {
   return (
     <header css={navContainer}>
       <nav>
         <div>
-          <div css={menuWrapper}>
+          <Container>
             <ul css={menuStyle}>
               <li css={logoStyle}>
                 <Image src={logo} alt="logo" layout="fill" />
@@ -46,7 +47,7 @@ const Navbar = () => {
                 <button css={borderButton}>회원가입</button>
               </li>
             </ul>
-          </div>
+          </Container>
         </div>
       </nav>
     </header>
@@ -64,11 +65,6 @@ const navContainer = css`
   width: 100%;
   height: 62px;
   box-shadow: 0 1px 0 0 rgb(0 0 0 / 8%);
-`;
-
-const menuWrapper = css`
-  max-width: 1320px;
-  margin: 0 auto;
 `;
 
 const menuStyle = css`
