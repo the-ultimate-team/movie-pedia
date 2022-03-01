@@ -3,6 +3,11 @@ import React from "react";
 import { css, jsx } from "@emotion/react";
 // Import the FontAwesomeIcon component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faTwitterSquare,
+  faBlogger,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
@@ -50,9 +55,18 @@ const Footer = () => {
               <button css={ButtonStyle}>한국어</button>
             </div>
             <div style={{ marginTop: "99px" }}>
-              <ul>
-                <li>
-                  <FontAwesomeIcon icon="fa-brands fa-facebook" />
+              <ul css={FontAwesomeWrap}>
+                <li css={FontAwesomeLi}>
+                  <FontAwesomeIcon css={FontAwesomeSize} icon={faFacebook} />
+                </li>
+                <li css={FontAwesomeLi}>
+                  <FontAwesomeIcon
+                    css={FontAwesomeSize}
+                    icon={faTwitterSquare}
+                  />
+                </li>
+                <li css={FontAwesomeLi}>
+                  <FontAwesomeIcon css={FontAwesomeSize} icon={faBlogger} />
                 </li>
               </ul>
             </div>
@@ -143,6 +157,18 @@ const ButtonStyle = css`
     height: 16px;
 }
   }
+`;
+
+const FontAwesomeWrap = css`
+  display: flex;
+`;
+
+const FontAwesomeSize = css`
+  font-size: 24px;
+`;
+
+const FontAwesomeLi = css`
+  padding-left: 14px;
 `;
 
 export default Footer;

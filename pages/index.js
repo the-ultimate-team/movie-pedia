@@ -1,8 +1,5 @@
-import axios from "axios";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import ContentListWrap from "../components/ContentList/ContentListWrap";
+import ContentListWrap from "../components/contentList/ContentListWrap";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 

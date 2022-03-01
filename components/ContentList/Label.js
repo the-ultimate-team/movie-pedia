@@ -14,10 +14,10 @@ const LabelDivStyle = css`
   padding: 12px 0 14px;
 `;
 
-const Label = () => {
+const Label = ({ categoryTheme }) => {
   return (
     <div css={LabelDivStyle}>
-      <span css={LabelStyle}>박스오피스 순위</span>
+      <span css={LabelStyle}>{categoryTheme}</span>
     </div>
   );
 };
