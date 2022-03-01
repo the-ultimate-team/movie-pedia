@@ -4,6 +4,64 @@ import { css, jsx } from "@emotion/react";
 import Image from "next/image";
 import axios from "axios";
 
+const API_KEY = "10923b261ba94d897ac6b81148314a3f";
+
+const Card = () => {
+  const [moives, setMovies] = useState();
+
+  useEffect(() => {
+    async function getMovieData() {
+      const {
+        data: { results },
+      } = await axios
+        .get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
+        .then((results) => {
+          setMovies(results);
+          console.log(results);
+        });
+    }
+    getMovieData();
+  }, []);
+
+  // useEffect(async () => {
+  //   try {
+  //     const { results } = await axios
+  //       .get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
+  //       .then((result) => {
+  //         setMovies(result);
+  //         console.log(result);
+  //       });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, []);
+
+  return (
+    <div css={CardStyle}>
+      {/* {!moives && <div>Loading...</div>}
+      {moives?.map((moive) => (
+        <div key={movie.id}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${moive.poster_path}`}
+            css={ImageStyle}
+            alt="image"
+            layout="fill"
+          />
+          <div css={TitleStyle}>{movie.original_title}</div>
+          <div css={YearNationSort}>
+            <div css={YearNationStyle}>년도&nbsp;</div>
+            <div css={YearNationStyle}>국가</div>
+          </div>
+          <div css={YearNationSort}>
+            <div css={AvgGradeStyle}>평균★&nbsp;</div>
+            <div css={AvgGradeStyle}>{movie.vote_average}</div>
+          </div>
+        </div>
+      ))} */}
+    </div>
+  );
+};
+
 const CardStyle = css`
   display: flex;
   flex-direction: column;
@@ -39,40 +97,5 @@ const AvgGradeStyle = css`
   font-size: 14px;
   line-height: 14px;
 `;
-
-const API_KEY = "10923b261ba94d897ac6b81148314a3f";
-
-const Card = () => {
-  const [moives, setMovies] = useState([]);
-
-  useEffect(async () => {
-    const res = await axios
-      .get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
-      .then((res) => {
-        setMovies(res.data);
-        console.log(res.data);
-      });
-  }, []);
-
-  return (
-    <div css={CardStyle}>
-      <img
-        src="https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
-        css={ImageStyle}
-        alt="image"
-        layout="fill"
-      />
-      <div css={TitleStyle}>타이틀</div>
-      <div css={YearNationSort}>
-        <div css={YearNationStyle}>년도&nbsp;</div>
-        <div css={YearNationStyle}>국가</div>
-      </div>
-      <div css={YearNationSort}>
-        <div css={AvgGradeStyle}>평균★&nbsp;</div>
-        <div css={AvgGradeStyle}>평점</div>
-      </div>
-    </div>
-  );
-};
 
 export default Card;

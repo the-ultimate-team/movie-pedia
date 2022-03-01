@@ -5,7 +5,8 @@ import Card from "./Card";
 import Label from "./Label";
 
 const WrapStyle = css`
-  padding: 0 50px;
+  max-width: 1320px;
+  margin: 0 auto;
 `;
 
 const ContentListUl = css`
@@ -23,18 +24,6 @@ const ContentListWrap = () => {
       <Label />
       <div>
         <ul css={ContentListUl}>
-          <li css={ContentLi}>
-            <Card />
-          </li>
-          <li css={ContentLi}>
-            <Card />
-          </li>
-          <li css={ContentLi}>
-            <Card />
-          </li>
-          <li css={ContentLi}>
-            <Card />
-          </li>
           <li css={ContentLi}>
             <Card />
           </li>

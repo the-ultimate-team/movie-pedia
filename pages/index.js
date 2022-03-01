@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import ContentListWrap from "../components/ContentList/ContentListWrap";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <div style={{ marginTop: 82 }}>
         <ContentListWrap />
       </div>
+      <Footer />
     </div>
   );
 }

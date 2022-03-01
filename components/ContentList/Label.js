@@ -7,6 +7,7 @@ const LabelStyle = css`
   font-size: 22px;
   letter-spacing: -0.4px;
   line-height: 30px;
+  font-weight: bold;
 `;
 
 const LabelDivStyle = css`
