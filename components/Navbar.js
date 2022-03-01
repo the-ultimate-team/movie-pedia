@@ -14,10 +14,10 @@ const Navbar = () => {
               <li css={logoStyle}>
                 <Image src={logo} />
               </li>
-              <li css={btnList}>
+              <li css={btnLi}>
                 <button css={basicButton}>영화</button>
               </li>
-              <li css={btnList}>
+              <li css={btnLi}>
                 <button css={basicButton}>TV</button>
               </li>
               <li css={searchLi}>
@@ -31,6 +31,12 @@ const Navbar = () => {
                     css={inputStyle}
                   />
                 </div>
+              </li>
+              <li css={btnLi}>
+                <button css={basicButton}>로그인</button>
+              </li>
+              <li css={btnLi}>
+                <button css={borderButton}>회원가입</button>
               </li>
             </ul>
           </div>
@@ -68,7 +74,7 @@ const logoStyle = css`
   height: 29px;
 `;
 
-const btnList = css`
+const btnLi = css`
   margin: 0 0 0 24px;
   display: flex;
   align-items: center;
@@ -116,5 +122,20 @@ const basicButton = css`
   color: #353535;
   font-size: 15px;
 `;
-
+const borderButton = css`
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 72px;
+  height: 32px;
+  background: transparent;
+  color: #353535;
+  letter-spacing: -0.3px;
+  padding: 5px 14px 6px 14px;
+  border: 1px solid rgba(116, 116, 123, 0.5);
+  border-radius: 6px;
+  margin: 15px 0;
+`;
 export default Navbar;
