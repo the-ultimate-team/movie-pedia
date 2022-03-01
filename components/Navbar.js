@@ -3,6 +3,8 @@ import React from "react";
 import { css, jsx } from "@emotion/react";
 import Image from "next/image";
 import logo from "../assets/Logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   return (
@@ -12,7 +14,7 @@ const Navbar = () => {
           <div css={menuWrapper}>
             <ul css={menuStyle}>
               <li css={logoStyle}>
-                <Image src={logo} />
+                <Image src={logo} alt="logo" layout="fill" />
               </li>
               <li css={btnLi}>
                 <button css={basicButton}>영화</button>
@@ -21,7 +23,12 @@ const Navbar = () => {
                 <button css={basicButton}>TV</button>
               </li>
               <li css={searchLi}>
-                <div css={searchInput}>
+                <label css={searchInput}>
+                  <FontAwesomeIcon
+                    css={searchIcon}
+                    icon={faSearch}
+                    layout="fill"
+                  />
                   <input
                     type="text"
                     autoComplete="off"
@@ -30,10 +37,10 @@ const Navbar = () => {
                     value=""
                     css={inputStyle}
                   />
-                </div>
+                </label>
               </li>
               <li css={btnLi}>
-                <button css={basicButton}>로그인</button>
+                <button css={loginButton}>로그인</button>
               </li>
               <li css={btnLi}>
                 <button css={borderButton}>회원가입</button>
@@ -70,8 +77,9 @@ const menuStyle = css`
 
 const logoStyle = css`
   margin: 15px 15px 0 0;
-  width: 151px;
+  min-width: 151px;
   height: 29px;
+  position: relative;
 `;
 
 const btnLi = css`
@@ -94,6 +102,15 @@ const searchInput = css`
   padding: 7px 10px 8px 36px;
   border-radius: 2px;
   background: #f5f5f7;
+  position: relative;
+`;
+
+const searchIcon = css`
+  position: absolute;
+  top: 10px;
+  left: 9px;
+  width: 16px;
+  color: #ccc;
 `;
 
 const inputStyle = css`
@@ -120,6 +137,12 @@ const basicButton = css`
   margin: 0;
   cursor: pointer;
   color: #353535;
+  font-size: 15px;
+  letter-spacing: -0.3px;
+`;
+const loginButton = css`
+  ${basicButton}
+  color: #74747b;
   font-size: 15px;
 `;
 const borderButton = css`
