@@ -3,25 +3,33 @@ import React from "react";
 import { css, jsx } from "@emotion/react";
 import Image from "next/image";
 import logo from "../assets/Logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Container from "./responsiveLayout/Container";
 
 const Navbar = () => {
   return (
     <header css={navContainer}>
       <nav>
         <div>
-          <div css={menuWrapper}>
+          <Container>
             <ul css={menuStyle}>
               <li css={logoStyle}>
-                <Image src={logo} />
+                <Image src={logo} alt="logo" layout="fill" />
               </li>
-              <li css={btnList}>
+              <li css={btnLi}>
                 <button css={basicButton}>영화</button>
               </li>
-              <li css={btnList}>
+              <li css={btnLi}>
                 <button css={basicButton}>TV</button>
               </li>
               <li css={searchLi}>
-                <div css={searchInput}>
+                <label css={searchInput}>
+                  <FontAwesomeIcon
+                    css={searchIcon}
+                    icon={faSearch}
+                    layout="fill"
+                  />
                   <input
                     type="text"
                     autoComplete="off"
@@ -30,10 +38,16 @@ const Navbar = () => {
                     value=""
                     css={inputStyle}
                   />
-                </div>
+                </label>
+              </li>
+              <li css={btnLi}>
+                <button css={loginButton}>로그인</button>
+              </li>
+              <li css={btnLi}>
+                <button css={borderButton}>회원가입</button>
               </li>
             </ul>
-          </div>
+          </Container>
         </div>
       </nav>
     </header>
@@ -53,22 +67,18 @@ const navContainer = css`
   box-shadow: 0 1px 0 0 rgb(0 0 0 / 8%);
 `;
 
-const menuWrapper = css`
-  max-width: 1320px;
-  margin: 0 auto;
-`;
-
 const menuStyle = css`
   display: flex;
 `;
 
 const logoStyle = css`
   margin: 15px 15px 0 0;
-  width: 151px;
+  min-width: 151px;
   height: 29px;
+  position: relative;
 `;
 
-const btnList = css`
+const btnLi = css`
   margin: 0 0 0 24px;
   display: flex;
   align-items: center;
@@ -88,6 +98,15 @@ const searchInput = css`
   padding: 7px 10px 8px 36px;
   border-radius: 2px;
   background: #f5f5f7;
+  position: relative;
+`;
+
+const searchIcon = css`
+  position: absolute;
+  top: 10px;
+  left: 9px;
+  width: 16px;
+  color: #ccc;
 `;
 
 const inputStyle = css`
@@ -115,6 +134,27 @@ const basicButton = css`
   cursor: pointer;
   color: #353535;
   font-size: 15px;
+  letter-spacing: -0.3px;
 `;
-
+const loginButton = css`
+  ${basicButton}
+  color: #74747b;
+  font-size: 15px;
+`;
+const borderButton = css`
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 72px;
+  height: 32px;
+  background: transparent;
+  color: #353535;
+  letter-spacing: -0.3px;
+  padding: 5px 14px 6px 14px;
+  border: 1px solid rgba(116, 116, 123, 0.5);
+  border-radius: 6px;
+  margin: 15px 0;
+`;
 export default Navbar;
