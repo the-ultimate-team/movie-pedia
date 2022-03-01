@@ -9,19 +9,19 @@ const API_KEY = "10923b261ba94d897ac6b81148314a3f";
 const Card = () => {
   const [moives, setMovies] = useState();
 
-  useEffect(() => {
-    async function getMovieData() {
-      const {
-        data: { results },
-      } = await axios
-        .get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
-        .then((results) => {
-          setMovies(results);
-          console.log(results);
-        });
-    }
-    getMovieData();
-  }, []);
+  // useEffect(() => {
+  //   async function getMovieData() {
+  //     const {
+  //       data: { results },
+  //     } = await axios
+  //       .get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
+  //       .then((results) => {
+  //         setMovies(results);
+  //         console.log(results);
+  //       });
+  //   }
+  //   getMovieData();
+  // }, []);
 
   // useEffect(async () => {
   //   try {

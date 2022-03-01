@@ -24,7 +24,7 @@ const Navbar = () => {
                 <div css={searchInput}>
                   <input
                     type="text"
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."
                     name="searchKeyword"
                     value=""
