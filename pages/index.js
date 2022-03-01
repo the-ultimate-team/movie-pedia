@@ -1,5 +1,5 @@
 import Head from "next/head";
-import ContentListWrap from "../components/contentList/ContentListWrap";
+import ContentListWrap from "../components/ContentListWrap";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 

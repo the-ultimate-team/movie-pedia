@@ -27,7 +27,7 @@ const Card = ({ movieItem }) => {
 
 const ContentLi = css`
   width: 20%;
-  padding: 8px;
+  padding-right: 16px;
 `;
 
 const CardStyle = css`

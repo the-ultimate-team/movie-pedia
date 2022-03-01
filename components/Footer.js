@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "./responsiveLayout/Container";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 // Import the FontAwesomeIcon component
@@ -18,60 +19,62 @@ const Footer = () => {
         쌓였어요.
       </div>
       <section css={FooterInfoWrap}>
-        <div css={MaxWidthAuto}>
-          <div>
-            <ul css={UlFlexStyle}>
-              <li css={LiAfterStyle}>서비스 이용약관</li>
-              <li css={LiAfterStyle}>개인정보 처리방침</li>
-              <li>회사 안내</li>
-            </ul>
-            <ul css={UlFlexStyle}>
-              <li css={LiAfterStyle}>고객센터</li>
-              <li>cs@watchapedia.co.kr, 02-515-9985</li>
-            </ul>
-            <ul css={UlFlexStyle}>
-              <li css={LiAfterStyle}>광고문의</li>
-              <li>ad@watcha.com</li>
-            </ul>
-            <ul css={UlFlexStyle}>
-              <li>제휴 및 대외 협력&nbsp; </li>
-              <li>https://watcha.team/contact</li>
-            </ul>
-            <ul css={UlFlexStyle}>
-              <li css={LiAfterStyle}>주식회사 왓챠</li>
-              <li css={LiAfterStyle}>대표 박태훈</li>
-              <li>서울특별시 서초구 강남대로 343 신덕빌딩 3층</li>
-            </ul>
-            <ul css={UlFlexStyle}>
-              <li>사업자 등록 번호 211-88-66013</li>
-            </ul>
-            <ul css={UlFlexStyle}>
-              <li>WATCHA PEDIA&nbsp;</li>
-              <li>© 2021 by WATCHA, Inc. All rights reserved.</li>
-            </ul>
-          </div>
-          <div>
+        <Container>
+          <div css={MaxWidthAuto}>
             <div>
-              <button css={ButtonStyle}>한국어</button>
-            </div>
-            <div style={{ marginTop: "99px" }}>
-              <ul css={FontAwesomeWrap}>
-                <li css={FontAwesomeLi}>
-                  <FontAwesomeIcon css={FontAwesomeSize} icon={faFacebook} />
-                </li>
-                <li css={FontAwesomeLi}>
-                  <FontAwesomeIcon
-                    css={FontAwesomeSize}
-                    icon={faTwitterSquare}
-                  />
-                </li>
-                <li css={FontAwesomeLi}>
-                  <FontAwesomeIcon css={FontAwesomeSize} icon={faBlogger} />
-                </li>
+              <ul css={UlFlexStyle}>
+                <li css={LiAfterStyle}>서비스 이용약관</li>
+                <li css={LiAfterStyle}>개인정보 처리방침</li>
+                <li>회사 안내</li>
+              </ul>
+              <ul css={UlFlexStyle}>
+                <li css={LiAfterStyle}>고객센터</li>
+                <li>cs@watchapedia.co.kr, 02-515-9985</li>
+              </ul>
+              <ul css={UlFlexStyle}>
+                <li css={LiAfterStyle}>광고문의</li>
+                <li>ad@watcha.com</li>
+              </ul>
+              <ul css={UlFlexStyle}>
+                <li>제휴 및 대외 협력&nbsp; </li>
+                <li>https://watcha.team/contact</li>
+              </ul>
+              <ul css={UlFlexStyle}>
+                <li css={LiAfterStyle}>주식회사 왓챠</li>
+                <li css={LiAfterStyle}>대표 박태훈</li>
+                <li>서울특별시 서초구 강남대로 343 신덕빌딩 3층</li>
+              </ul>
+              <ul css={UlFlexStyle}>
+                <li>사업자 등록 번호 211-88-66013</li>
+              </ul>
+              <ul css={UlFlexStyle}>
+                <li>WATCHA PEDIA&nbsp;</li>
+                <li>© 2021 by WATCHA, Inc. All rights reserved.</li>
               </ul>
             </div>
+            <div>
+              <div>
+                <button css={ButtonStyle}>한국어</button>
+              </div>
+              <div style={{ marginTop: "99px" }}>
+                <ul css={FontAwesomeWrap}>
+                  <li css={FontAwesomeLi}>
+                    <FontAwesomeIcon css={FontAwesomeSize} icon={faFacebook} />
+                  </li>
+                  <li css={FontAwesomeLi}>
+                    <FontAwesomeIcon
+                      css={FontAwesomeSize}
+                      icon={faTwitterSquare}
+                    />
+                  </li>
+                  <li css={FontAwesomeLi}>
+                    <FontAwesomeIcon css={FontAwesomeSize} icon={faBlogger} />
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
     </footer>
   );
