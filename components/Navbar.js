@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import Image from "next/image";
@@ -6,51 +6,86 @@ import logo from "../assets/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Container from "./responsiveLayout/Container";
+import LoginForm from "./form/LoginForm";
+import CreateAccount from "./form/CreateAccount";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const [loginModal, setLoginModal] = useState(false);
+  const [signUpModal, setSignUpModal] = useState(false);
+
+  const onLoginModalHandler = () => {
+    setLoginModal((prev) => !loginModal);
+    setSignUpModal((prev) => false);
+  };
+
+  const onSignUpModalHandler = () => {
+    setSignUpModal((prev) => !signUpModal);
+    setLoginModal((prev) => false);
+  };
+
   return (
-    <header css={navContainer}>
-      <nav>
-        <div>
-          <Container>
-            <ul css={menuStyle}>
-              <li css={logoStyle}>
-                <Image src={logo} alt="logo" layout="fill" />
-              </li>
-              <li css={btnLi}>
-                <button css={basicButton}>영화</button>
-              </li>
-              <li css={btnLi}>
-                <button css={basicButton}>TV</button>
-              </li>
-              <li css={searchLi}>
-                <label css={searchInput}>
-                  <FontAwesomeIcon
-                    css={searchIcon}
-                    icon={faSearch}
-                    layout="fill"
-                  />
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."
-                    name="searchKeyword"
-                    value=""
-                    css={inputStyle}
-                  />
-                </label>
-              </li>
-              <li css={btnLi}>
-                <button css={loginButton}>로그인</button>
-              </li>
-              <li css={btnLi}>
-                <button css={borderButton}>회원가입</button>
-              </li>
-            </ul>
-          </Container>
-        </div>
-      </nav>
-    </header>
+    <>
+      {signUpModal ? (
+        <CreateAccount
+          onToggleModalHandler={onSignUpModalHandler}
+          onToggleLoginFormHandler={onLoginModalHandler}
+        />
+      ) : null}
+
+      {loginModal ? (
+        <LoginForm
+          onToggleModalHandler={onLoginModalHandler}
+          onToggleSignUpHandler={onSignUpModalHandler}
+        />
+      ) : null}
+
+      <header css={navContainer}>
+        <nav>
+          <div>
+            <Container>
+              <ul css={menuStyle}>
+                <li css={logoStyle}>
+                  <Image src={logo} alt="logo" layout="fill" />
+                </li>
+                <li css={btnLi}>
+                  <button css={basicButton}>영화</button>
+                </li>
+                <li css={btnLi}>
+                  <button css={basicButton}>TV</button>
+                </li>
+                <li css={searchLi}>
+                  <label css={searchInput}>
+                    <FontAwesomeIcon
+                      css={searchIcon}
+                      icon={faSearch}
+                      layout="fill"
+                    />
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."
+                      name="searchKeyword"
+                      value=""
+                      css={inputStyle}
+                    />
+                  </label>
+                </li>
+                <li css={btnLi}>
+                  <button onClick={onLoginModalHandler} css={loginButton}>
+                    로그인
+                  </button>
+                </li>
+                <li css={btnLi}>
+                  <button onClick={onSignUpModalHandler} css={borderButton}>
+                    회원가입
+                  </button>
+                </li>
+              </ul>
+            </Container>
+          </div>
+        </nav>
+      </header>
+    </>
   );
 };
 
@@ -156,5 +191,6 @@ const borderButton = css`
   border: 1px solid rgba(116, 116, 123, 0.5);
   border-radius: 6px;
   margin: 15px 0;
+  cursor: pointer;
 `;
 export default Navbar;
