@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+import styled from "@emotion/styled";
 import Label from "../../Label";
 import Card from "../../Card";
 import axios from "axios";
@@ -13,6 +14,7 @@ const Popular = () => {
   const [moviesPopular, setMoviesPopular] = useState();
   const [rightArrowToggle, setRightArrowToggle] = useState(true);
   const [leftArrowToggle, setLeftArrowToggle] = useState(false);
+  const [scrollXWidth, setScrollXWidth] = useState(0);
 
   useEffect(() => {
     async function getMoviePopular() {
@@ -28,7 +30,10 @@ const Popular = () => {
 
   const contentListSlideWrap = useRef();
   let arrowButtonHidden = 0;
-  let scrollXWidth = 1320;
+
+  useEffect(() => {
+    setScrollXWidth((prev) => contentListSlideWrap.current.clientWidth);
+  }, [scrollXWidth]);
 
   const RightArrowSlide = () => {
     arrowButtonHidden = contentListSlideWrap.current.scrollLeft += scrollXWidth;
@@ -42,7 +47,7 @@ const Popular = () => {
 
   const LeftArrowSlide = () => {
     arrowButtonHidden = contentListSlideWrap.current.scrollLeft -= scrollXWidth;
-    if (arrowButtonHidden === 0) {
+    if (arrowButtonHidden <= 10) {
       setLeftArrowToggle(false);
     }
     if (arrowButtonHidden <= scrollXWidth * 2) {
@@ -55,26 +60,23 @@ const Popular = () => {
       <div css={WrapStyle}>
         <Label categoryTheme="현재인기작" />
         <div css={SlideContainer}>
-          {/* {leftArrowToggle ? ( */}
-          <div leftArrowToggle={leftArrowToggle} css={LeftArrowPosition}>
+          <LeftArrowPosition leftArrowToggle={leftArrowToggle}>
             <div onClick={LeftArrowSlide} css={LeftArrow}>
               <FontAwesomeIcon icon={faAngleLeft} layout="fill" />
             </div>
-          </div>
-          {/* ) : null} */}
+          </LeftArrowPosition>
 
           <ul css={ContentListUl} ref={contentListSlideWrap}>
             {moviesPopular?.map((movie) => (
               <Card key={movie.id} movieItem={movie} />
             ))}
           </ul>
-          {rightArrowToggle ? (
-            <div css={RightArrowPosition}>
-              <div onClick={RightArrowSlide} css={RightArrow}>
-                <FontAwesomeIcon icon={faAngleRight} layout="fill" />
-              </div>
+
+          <RightArrowPosition rightArrowToggle={rightArrowToggle}>
+            <div onClick={RightArrowSlide} css={RightArrow}>
+              <FontAwesomeIcon icon={faAngleRight} layout="fill" />
             </div>
-          ) : null}
+          </RightArrowPosition>
         </div>
       </div>
     </>
@@ -115,15 +117,15 @@ const LeftArrow = css`
 }
 `;
 
-const LeftArrowPosition = (props) => css`
+const LeftArrowPosition = styled.div`
   display: flex;
   position: absolute;
   top: 35%;
   left: -15px;
   z-index: 2;
   align-items: center;
-  opacity: ${props.leftArrowToggle ? 1 : 0};
-  transition: all 2s ease-in-out;
+  opacity: ${(props) => (props.leftArrowToggle ? 1 : 0)};
+  transition: all 0.5s ease;
 `;
 
 const RightArrow = css`
@@ -145,13 +147,15 @@ const RightArrow = css`
   }
 `;
 
-const RightArrowPosition = css`
+const RightArrowPosition = styled.div`
   display: flex;
   position: absolute;
   top: 35%;
   right: 0;
-  z-index: 2;
+  /* z-index: 1; */
   align-items: center;
+  opacity: ${(props) => (props.rightArrowToggle ? 1 : 0)};
+  transition: all 0.5s ease;
 `;
 
 export default Popular;
