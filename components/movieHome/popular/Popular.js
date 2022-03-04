@@ -33,7 +33,7 @@ const Popular = () => {
 
   useEffect(() => {
     setScrollXWidth((prev) => contentListSlideWrap.current.clientWidth);
-  }, [scrollXWidth]);
+  }, []);
 
   const RightArrowSlide = () => {
     arrowButtonHidden = contentListSlideWrap.current.scrollLeft += scrollXWidth;
