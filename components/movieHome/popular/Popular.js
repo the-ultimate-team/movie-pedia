@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Label from "../../Label";
 import Card from "../../Card";
