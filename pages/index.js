@@ -1,8 +1,8 @@
 import Head from "next/head";
 import ContentListWrap from "../components/ContentListWrap";
-import Detail from "../components/Detail";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import PosterDetail from "../components/PosterDetail";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
       <Navbar />
       {/* <div style={{ marginTop: 82 }}> */}
       {/* <ContentListWrap /> */}
-      <Detail />
+      <PosterDetail />
       {/* </div> */}
       <Footer />
     </div>

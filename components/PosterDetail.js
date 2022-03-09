@@ -4,8 +4,22 @@ import { css, jsx } from "@emotion/react";
 import StarRating from "./StarRating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPencil } from "@fortawesome/free-solid-svg-icons";
+import PosterDetailCommentCard from "./PosterDetailCommentCard";
 
-const Detail = () => {
+const basicInfoData = [
+  {
+    desc: `영웅이 될 것인가 악당이 될 것인가 운명을 결정할 선택만이 남았다
+    지난 2년간 고담시의 어둠 속에서 범법자들을 응징하며 배트맨으로
+    살아온 브루스 웨인. 알프레드와 제임스 고든 경위의 도움 아래,
+    도시의 부패한 공직자들과 고위 관료들 사이에서 복수의 화신으로
+    활약한다. 고담의 시장 선거를 앞두고 고담의 엘리트 집단을 목표로
+    잔악한 연쇄살인을 저지르는 수수께끼 킬러 리들러가 나타나자,
+    최고의 탐정 브루스 웨인이 수사에 나서고 남겨진 단서를 풀어가며
+    캣우먼, 펭귄, 카마인 팔코네, 리들러를 차례대로 만난다.`,
+  },
+];
+
+const PosterDetail = () => {
   return (
     <div>
       <section css={PosterContainer}>
@@ -15,7 +29,9 @@ const Detail = () => {
             <div css={PosterImage}></div>
             <div css={PosterDetailInfo}>
               <div css={PosterTitle}>타이틀명</div>
-              <div css={PosterDetail}>2022 ・ 액션/범죄/드라마 ・ 미국</div>
+              <div css={PosterDetailStyle}>
+                2022 ・ 액션/범죄/드라마 ・ 미국
+              </div>
               <div css={PosterAvg}>평균 ★</div>
               <div css={PosterGrade}>
                 <div css={PosterStar}>
@@ -49,11 +65,107 @@ const Detail = () => {
         </div>
       </section>
       <div css={PosterDetailInfoWrap}>
-        <div css={PosterDetailInfoArea}>dd</div>
+        <div css={PosterDetailInfoArea}>
+          <div>
+            <div css={PosterCoomonSort}>
+              <div css={CommonSubTitleStyle}>기본 정보</div>
+              <div css={CommonSubMore}>
+                <a>더보기</a>
+              </div>
+            </div>
+            <div css={PosterDetailInfoPadding}>
+              <div css={MarginStyle}>
+                <div>타이틀명</div>
+                <div>2022 · 미국 · 액션</div>
+                <div>2시간 55분 · 15세</div>
+              </div>
+              <div css={PosterDetailDesc}>{basicInfoData[0].desc}</div>
+              <div css={line} />
+            </div>
+          </div>
+          <div>
+            <div css={PosterCoomonSort}>
+              <div css={CommonSubTitleStyle}>코멘트</div>
+              <div css={CommonSubMore}>
+                <a>더보기</a>
+              </div>
+            </div>
+            <div css={PosterCommentCardPadding}>
+              <ul>
+                <PosterDetailCommentCard />
+              </ul>
+            </div>
+          </div>
+          <div css={SimilarPosterPadding}>
+            <div css={CommonSubTitleStyle}>비슷한 작품</div>
+            <div style={{ width: "100%" }}>
+              <ul>
+                <li>
+                  <div></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+const SimilarPosterPadding = css`
+  padding: 25px;
+`;
+
+const PosterCommentCardPadding = css`
+  margin: 20px;
+  width: 100%;
+`;
+
+const MarginStyle = css`
+  margin: 8px 0px;
+`;
+
+const PosterDetailInfoPadding = css`
+  padding: 0 25px;
+  color: rgb(74, 74, 74);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.2px;
+  line-height: 24px;
+`;
+
+const PosterDetailDesc = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+`;
+
+const line = css`
+  border-bottom: 1px solid #f0f0f0;
+  margin-top: 20px;
+`;
+
+const CommonSubMore = css`
+  color: rgb(255, 47, 110);
+  text-decoration: none;
+  margin-top: 5px;
+`;
+
+const CommonSubTitleStyle = css`
+  color: rgb(0, 0, 0);
+  font-size: 19px;
+  font-weight: bold;
+  letter-spacing: -0.7px;
+  line-height: 28px;
+`;
+
+const PosterCoomonSort = css`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 25px 10px 25px;
+`;
 
 const PosterContainer = css`
   width: 100%;
@@ -103,7 +215,7 @@ const PosterTitle = css`
   line-height: 41px;
 `;
 
-const PosterDetail = css`
+const PosterDetailStyle = css`
   font-size: 17px;
   font-weight: 400;
   letter-spacing: -0.7px;
@@ -181,9 +293,11 @@ const PosterDetailInfoWrap = css`
 `;
 
 const PosterDetailInfoArea = css`
-  width: 63%;
+  max-width: 960px;
   background-color: #fff;
   margin: 0 auto;
+  border: 1px solid rgb(227, 227, 227);
+  border-radius: 6px;
 `;
 
-export default Detail;
+export default PosterDetail;
