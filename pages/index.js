@@ -13,10 +13,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      {/* <div style={{ marginTop: 82 }}> */}
-      {/* <ContentListWrap /> */}
-      <PosterDetail />
-      {/* </div> */}
+      <div style={{ marginTop: 82 }}>
+        <ContentListWrap />
+        {/* <PosterDetail /> */}
+      </div>
       <Footer />
     </div>
   );

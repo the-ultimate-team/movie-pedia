@@ -1,26 +1,31 @@
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
-import Image from "next/image";
+import { css } from "@emotion/react";
+import Link from "next/link";
 
 const Card = ({ movieItem }) => {
-  const { poster_path, original_title, vote_average, release_date } = movieItem;
+  const { poster_path, original_title, vote_average, release_date, id } =
+    movieItem;
   return (
     <li css={ContentLi}>
-      <div css={CardStyle}>
-        <img
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          alt="image"
-        />
-        <div css={TitleStyle}>{original_title}</div>
-        <div css={YearNationSort}>
-          <div css={YearNationStyle}>개봉일&nbsp;</div>
-          <div css={YearNationStyle}>{release_date}</div>
-        </div>
-        <div css={YearNationSort}>
-          <div css={AvgGradeStyle}>평균★&nbsp;</div>
-          <div css={AvgGradeStyle}>{vote_average}</div>
-        </div>
-      </div>
+      <Link href={`/view/movie/${id}`}>
+        <a>
+          <div css={CardStyle}>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+              alt="image"
+            />
+            <div css={TitleStyle}>{original_title}</div>
+            <div css={YearNationSort}>
+              <div css={YearNationStyle}>개봉일&nbsp;</div>
+              <div css={YearNationStyle}>{release_date}</div>
+            </div>
+            <div css={YearNationSort}>
+              <div css={AvgGradeStyle}>평균★&nbsp;</div>
+              <div css={AvgGradeStyle}>{vote_average}</div>
+            </div>
+          </div>
+        </a>
+      </Link>
     </li>
   );
 };

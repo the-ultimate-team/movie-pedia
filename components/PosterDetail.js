@@ -1,38 +1,76 @@
 import React from "react";
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import StarRating from "./StarRating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPencil } from "@fortawesome/free-solid-svg-icons";
 import PosterDetailCommentCard from "./PosterDetailCommentCard";
+import SimilarPosterCard from "./SimilarPosterCard";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const basicInfoData = [
-  {
-    desc: `영웅이 될 것인가 악당이 될 것인가 운명을 결정할 선택만이 남았다
-    지난 2년간 고담시의 어둠 속에서 범법자들을 응징하며 배트맨으로
-    살아온 브루스 웨인. 알프레드와 제임스 고든 경위의 도움 아래,
-    도시의 부패한 공직자들과 고위 관료들 사이에서 복수의 화신으로
-    활약한다. 고담의 시장 선거를 앞두고 고담의 엘리트 집단을 목표로
-    잔악한 연쇄살인을 저지르는 수수께끼 킬러 리들러가 나타나자,
-    최고의 탐정 브루스 웨인이 수사에 나서고 남겨진 단서를 풀어가며
-    캣우먼, 펭귄, 카마인 팔코네, 리들러를 차례대로 만난다.`,
-  },
-];
+// const basicInfoData = [
+//   {
+//     desc: `영웅이 될 것인가 악당이 될 것인가 운명을 결정할 선택만이 남았다
+//     지난 2년간 고담시의 어둠 속에서 범법자들을 응징하며 배트맨으로
+//     살아온 브루스 웨인. 알프레드와 제임스 고든 경위의 도움 아래,
+//     도시의 부패한 공직자들과 고위 관료들 사이에서 복수의 화신으로
+//     활약한다. 고담의 시장 선거를 앞두고 고담의 엘리트 집단을 목표로
+//     잔악한 연쇄살인을 저지르는 수수께끼 킬러 리들러가 나타나자,
+//     최고의 탐정 브루스 웨인이 수사에 나서고 남겨진 단서를 풀어가며
+//     캣우먼, 펭귄, 카마인 팔코네, 리들러를 차례대로 만난다.`,
+//   },
+// ];
 
-const PosterDetail = () => {
+const PosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
+  const [posterShow, setPosterShow] = useState(15);
+  const {
+    title,
+    vote_average,
+    original_language,
+    poster_path,
+    overview,
+    genres,
+    vote_count,
+    runtime,
+    release_date,
+    backdrop_path,
+  } = moiveDetailDataProps;
+
+  const NumberOfShowMore = () => {
+    setPosterShow((prev) => prev + 5);
+  };
+
   return (
     <div>
+      <Navbar />
       <section css={PosterContainer}>
-        <div css={PosterBigImage}>빅 이미지</div>
+        <div css={PosterBigImage}>
+          <img
+            css={PosterBigImageStyle}
+            src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
+            alt="image"
+          />
+        </div>
         <div css={PosterBasicInfoContainer}>
           <div css={PosterBasicInfo}>
-            <div css={PosterImage}></div>
+            <div css={PosterImage}>
+              <img
+                css={PosterImageStyle}
+                src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                alt="image"
+              />
+            </div>
             <div css={PosterDetailInfo}>
-              <div css={PosterTitle}>타이틀명</div>
+              <div css={PosterTitle}>{title}</div>
               <div css={PosterDetailStyle}>
-                2022 ・ 액션/범죄/드라마 ・ 미국
+                {release_date} ・ 액션/범죄/드라마 ・ {original_language}
               </div>
-              <div css={PosterAvg}>평균 ★</div>
+              <div css={PosterAvg}>
+                평균★ {vote_average}점 ({vote_count})명
+              </div>
               <div css={PosterGrade}>
                 <div css={PosterStar}>
                   <div css={PosterAvgFont}>평가하기</div>
@@ -75,12 +113,12 @@ const PosterDetail = () => {
             </div>
             <div css={PosterDetailInfoPadding}>
               <div css={MarginStyle}>
-                <div>타이틀명</div>
-                <div>2022 · 미국 · 액션</div>
-                <div>2시간 55분 · 15세</div>
+                <div>{title}</div>
+                <div>{release_date} · 미국 · 액션</div>
+                <div>{runtime}분 · 15세</div>
               </div>
-              <div css={PosterDetailDesc}>{basicInfoData[0].desc}</div>
-              <div css={line} />
+              <div css={PosterDetailDesc}>{overview}</div>
+              <div css={Line} />
             </div>
           </div>
           <div>
@@ -96,24 +134,93 @@ const PosterDetail = () => {
               </ul>
             </div>
           </div>
+
           <div css={SimilarPosterPadding}>
+            <div css={Line2} />
             <div css={CommonSubTitleStyle}>비슷한 작품</div>
-            <div style={{ width: "100%" }}>
-              <ul>
-                <li>
-                  <div></div>
-                </li>
+            <div css={SimilarPosterMargin}>
+              <ul css={SimilarPosterFlex}>
+                {movieDetailSimilar
+                  ?.filter((_, index) => index < posterShow)
+                  .map((movie) => (
+                    <li key={movie.id} css={SimilarPosterSize}>
+                      <SimilarPosterCard movieSimilar={movie} />
+                    </li>
+                  ))}
               </ul>
+            </div>
+            <div style={{ marginTop: "30px" }}>
+              {movieDetailSimilar.length <= posterShow ? null : (
+                <button onClick={NumberOfShowMore} css={SimilarPosterMore}>
+                  더보기
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
 
+const SimilarPosterMore = css`
+  cursor: pointer;
+  border-radius: 6px;
+  box-sizing: border-box;
+  min-width: 72px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 18px;
+  text-align: center;
+  width: calc(100% - 30px);
+  max-width: 172px;
+  height: 34px;
+  padding: 0px 0px 0px 8px;
+  border: 1px solid rgb(227, 227, 227);
+  margin: 0px auto !important;
+`;
+
+const SimilarPosterSize = css`
+  margin-bottom: 15px;
+  flex-basis: 20%;
+`;
+
+const SimilarPosterFlex = css`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const PosterBigImageStyle = css`
+  width: 100%;
+  height: 100%;
+  /* object-fit: contain; */
+`;
+
+const PosterImageStyle = css`
+  /* vertical-align: top; */
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  /* object-fit: cover; */
+`;
+
 const SimilarPosterPadding = css`
   padding: 25px;
+`;
+
+const SimilarPosterMargin = css`
+  width: 100%;
+  /* height: 978.5px; */
+  margin-top: 22px;
+  /* overflow: hidden; */
 `;
 
 const PosterCommentCardPadding = css`
@@ -142,9 +249,14 @@ const PosterDetailDesc = css`
   -webkit-box-orient: vertical;
 `;
 
-const line = css`
+const Line = css`
   border-bottom: 1px solid #f0f0f0;
   margin-top: 20px;
+`;
+
+const Line2 = css`
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 20px;
 `;
 
 const CommonSubMore = css`
@@ -176,7 +288,7 @@ const PosterBigImage = css`
   width: 100%;
   height: 509px;
   min-height: 209px;
-  padding-top: 300px;
+  /* padding-top: 300px; */
   background-color: gray;
 `;
 
