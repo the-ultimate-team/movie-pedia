@@ -3,29 +3,24 @@ import React from "react";
 import { css } from "@emotion/react";
 import StarRating from "./StarRating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faPencil } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faPencil,
+  faAngleDown,
+} from "@fortawesome/free-solid-svg-icons";
 import PosterDetailCommentCard from "./PosterDetailCommentCard";
 import SimilarPosterCard from "./SimilarPosterCard";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useState, useEffect } from "react";
-import axios from "axios";
-
-// const basicInfoData = [
-//   {
-//     desc: `영웅이 될 것인가 악당이 될 것인가 운명을 결정할 선택만이 남았다
-//     지난 2년간 고담시의 어둠 속에서 범법자들을 응징하며 배트맨으로
-//     살아온 브루스 웨인. 알프레드와 제임스 고든 경위의 도움 아래,
-//     도시의 부패한 공직자들과 고위 관료들 사이에서 복수의 화신으로
-//     활약한다. 고담의 시장 선거를 앞두고 고담의 엘리트 집단을 목표로
-//     잔악한 연쇄살인을 저지르는 수수께끼 킬러 리들러가 나타나자,
-//     최고의 탐정 브루스 웨인이 수사에 나서고 남겨진 단서를 풀어가며
-//     캣우먼, 펭귄, 카마인 팔코네, 리들러를 차례대로 만난다.`,
-//   },
-// ];
 
 const PosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
   const [posterShow, setPosterShow] = useState(15);
+
+  useEffect(() => {
+    setPosterShow((prev) => 15);
+  }, [moiveDetailDataProps, movieDetailSimilar]);
+
   const {
     title,
     vote_average,
@@ -66,10 +61,17 @@ const PosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
             <div css={PosterDetailInfo}>
               <div css={PosterTitle}>{title}</div>
               <div css={PosterDetailStyle}>
-                {release_date} ・ 액션/범죄/드라마 ・ {original_language}
+                {release_date} ・{" "}
+                {genres?.map((genre, index) => (
+                  <span key={genre.id}>
+                    {index !== 0 && " / "}
+                    {genre.name}
+                  </span>
+                ))}{" "}
+                ・ {original_language}
               </div>
               <div css={PosterAvg}>
-                평균★ {vote_average}점 ({vote_count})명
+                평균★ {vote_average}점 ({vote_count}명)
               </div>
               <div css={PosterGrade}>
                 <div css={PosterStar}>
@@ -114,8 +116,17 @@ const PosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
             <div css={PosterDetailInfoPadding}>
               <div css={MarginStyle}>
                 <div>{title}</div>
-                <div>{release_date} · 미국 · 액션</div>
-                <div>{runtime}분 · 15세</div>
+                <div>
+                  {release_date} ·{" "}
+                  {genres?.map((genre, index) => (
+                    <span key={genre.id}>
+                      {index !== 0 && " / "}
+                      {genre.name}
+                    </span>
+                  ))}{" "}
+                  ・ {original_language}
+                </div>
+                <div>{runtime}분</div>
               </div>
               <div css={PosterDetailDesc}>{overview}</div>
               <div css={Line} />
@@ -152,7 +163,8 @@ const PosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
             <div style={{ marginTop: "30px" }}>
               {movieDetailSimilar.length <= posterShow ? null : (
                 <button onClick={NumberOfShowMore} css={SimilarPosterMore}>
-                  더보기
+                  더보기&nbsp;
+                  <FontAwesomeIcon icon={faAngleDown} layout="fill" />
                 </button>
               )}
             </div>

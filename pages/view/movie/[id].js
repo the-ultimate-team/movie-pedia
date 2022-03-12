@@ -25,11 +25,11 @@ const Post = () => {
 
   useEffect(() => {
     getMovieSimilarData();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     getMovieDetailData();
-  }, []);
+  }, [id]);
 
   return (
     <PosterDetail

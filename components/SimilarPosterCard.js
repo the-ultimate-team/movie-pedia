@@ -7,18 +7,20 @@ const SimilarPosterCard = ({ movieSimilar }) => {
   const { id, title, poster_path, vote_average } = movieSimilar;
   return (
     <div>
-      {/* <Link href={`/view/movie/${id}`}> */}
-      <div css={SimilarPosterImage}>
-        <img
-          css={SimilarPosterImageSize}
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          alt="image"
-        />
-      </div>
-      <div css={SimilarPosterTitle}>{title.substring(0, 20)}</div>
-      <div css={AvgClassifyStyle}>평균★ {vote_average}</div>
-      {/* <div css={AvgClassifyStyle}>분류</div> */}
-      {/* </Link> */}
+      <Link href={`/view/movie/${id}`}>
+        <a>
+          <div css={SimilarPosterImage}>
+            <img
+              css={SimilarPosterImageSize}
+              src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+              alt="image"
+            />
+          </div>
+          <div css={SimilarPosterTitle}>{title.substring(0, 20)}</div>
+          <div css={AvgClassifyStyle}>평균★ {vote_average}</div>
+          {/* <div css={AvgClassifyStyle}>분류</div> */}
+        </a>
+      </Link>
     </div>
   );
 };

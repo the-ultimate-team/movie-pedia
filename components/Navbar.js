@@ -8,6 +8,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Container from "./responsiveLayout/Container";
 import LoginForm from "./form/LoginForm";
 import CreateAccount from "./form/CreateAccount";
+import Link from "next/link";
 
 const Navbar = (props) => {
   const [loginModal, setLoginModal] = useState(false);
@@ -45,7 +46,11 @@ const Navbar = (props) => {
             <Container>
               <ul css={menuStyle}>
                 <li css={logoStyle}>
-                  <Image src={logo} alt="logo" layout="fill" />
+                  <Link href="/">
+                    <a>
+                      <Image src={logo} alt="logo" layout="fill" />
+                    </a>
+                  </Link>
                 </li>
                 <li css={btnLi}>
                   <button css={basicButton}>영화</button>

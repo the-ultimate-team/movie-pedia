@@ -2,7 +2,6 @@ import Head from "next/head";
 import ContentListWrap from "../components/ContentListWrap";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import PosterDetail from "../components/PosterDetail";
 
 export default function Home() {
   return (
@@ -13,9 +12,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div style={{ marginTop: 82 }}>
+      <div style={{ marginTop: 82, marginBottom: 82 }}>
         <ContentListWrap />
-        {/* <PosterDetail /> */}
       </div>
       <Footer />
     </div>
