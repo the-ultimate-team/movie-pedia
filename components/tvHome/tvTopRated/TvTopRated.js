@@ -3,31 +3,29 @@ import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Label from "../../Label";
+import TvCard from "../TvCard";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import MovieCard from "../MovieCard";
 
 const API_KEY = "10923b261ba94d897ac6b81148314a3f";
 
-const NowPlaying = () => {
-  const [moviesNowPlaying, setMoviesNowPlaying] = useState();
+const TvTopRated = () => {
+  const [tvTopRated, setTvTopRated] = useState();
   const [rightArrowToggle, setRightArrowToggle] = useState(true);
   const [leftArrowToggle, setLeftArrowToggle] = useState(false);
   const [scrollXWidth, setScrollXWidth] = useState(0);
 
   useEffect(() => {
-    async function getNowPlaying() {
+    async function getTvTopRated() {
       await axios
-        .get(
-          `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`
-        )
+        .get(`https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}`)
         .then((res) => {
-          setMoviesNowPlaying(res.data.results);
+          setTvTopRated(res.data.results);
         })
         .catch((err) => console.log(err));
     }
-    getNowPlaying();
+    getTvTopRated();
   }, []);
 
   const contentListSlideWrap = useRef();
@@ -58,28 +56,30 @@ const NowPlaying = () => {
   };
 
   return (
-    <div css={WrapStyle}>
-      <Label categoryTheme="현재상영작" />
-      <div css={SlideContainer}>
-        <LeftArrowPosition leftArrowToggle={leftArrowToggle}>
-          <div onClick={LeftArrowSlide} css={LeftArrow}>
-            <FontAwesomeIcon icon={faAngleLeft} layout="fill" />
-          </div>
-        </LeftArrowPosition>
+    <>
+      <div css={WrapStyle}>
+        <Label categoryTheme="Top Rated" />
+        <div css={SlideContainer}>
+          <LeftArrowPosition leftArrowToggle={leftArrowToggle}>
+            <div onClick={LeftArrowSlide} css={LeftArrow}>
+              <FontAwesomeIcon icon={faAngleLeft} layout="fill" />
+            </div>
+          </LeftArrowPosition>
 
-        <ul css={ContentListUl} ref={contentListSlideWrap}>
-          {moviesNowPlaying?.map((movie) => (
-            <MovieCard key={movie.id} movieItem={movie} />
-          ))}
-        </ul>
+          <ul css={ContentListUl} ref={contentListSlideWrap}>
+            {tvTopRated?.map((tv) => (
+              <TvCard key={tv.id} tvItem={tv} />
+            ))}
+          </ul>
 
-        <RightArrowPosition rightArrowToggle={rightArrowToggle}>
-          <div onClick={RightArrowSlide} css={RightArrow}>
-            <FontAwesomeIcon icon={faAngleRight} layout="fill" />
-          </div>
-        </RightArrowPosition>
+          <RightArrowPosition rightArrowToggle={rightArrowToggle}>
+            <div onClick={RightArrowSlide} css={RightArrow}>
+              <FontAwesomeIcon icon={faAngleRight} layout="fill" />
+            </div>
+          </RightArrowPosition>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -158,4 +158,4 @@ const RightArrowPosition = styled.div`
   transition: all 0.5s ease;
 `;
 
-export default NowPlaying;
+export default TvTopRated;

@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 
-const Card = ({ movieItem }) => {
+const MovieCard = ({ movieItem }) => {
   const { poster_path, original_title, vote_average, release_date, id } =
     movieItem;
   return (
@@ -66,4 +66,4 @@ const AvgGradeStyle = css`
   line-height: 22px;
 `;
 
-export default Card;
+export default MovieCard;

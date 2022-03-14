@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import Image from "next/image";
 import logo from "../assets/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -53,10 +53,18 @@ const Navbar = (props) => {
                   </Link>
                 </li>
                 <li css={btnLi}>
-                  <button css={basicButton}>영화</button>
+                  <Link href="/">
+                    <a>
+                      <button css={basicButton}>영화</button>
+                    </a>
+                  </Link>
                 </li>
                 <li css={btnLi}>
-                  <button css={basicButton}>TV</button>
+                  <Link href="/tv">
+                    <a>
+                      <button css={basicButton}>TV</button>
+                    </a>
+                  </Link>
                 </li>
                 <li css={searchLi}>
                   <label css={searchInput}>

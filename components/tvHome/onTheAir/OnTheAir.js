@@ -6,28 +6,26 @@ import Label from "../../Label";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import MovieCard from "../MovieCard";
+import TvCard from "../TvCard";
 
 const API_KEY = "10923b261ba94d897ac6b81148314a3f";
 
-const NowPlaying = () => {
-  const [moviesNowPlaying, setMoviesNowPlaying] = useState();
+const OnTheAir = () => {
+  const [tvOnTheAir, setTvOnTheAir] = useState();
   const [rightArrowToggle, setRightArrowToggle] = useState(true);
   const [leftArrowToggle, setLeftArrowToggle] = useState(false);
   const [scrollXWidth, setScrollXWidth] = useState(0);
 
   useEffect(() => {
-    async function getNowPlaying() {
+    async function getTvOnTheAir() {
       await axios
-        .get(
-          `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`
-        )
+        .get(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${API_KEY}`)
         .then((res) => {
-          setMoviesNowPlaying(res.data.results);
+          setTvOnTheAir(res.data.results);
         })
         .catch((err) => console.log(err));
     }
-    getNowPlaying();
+    getTvOnTheAir();
   }, []);
 
   const contentListSlideWrap = useRef();
@@ -59,7 +57,7 @@ const NowPlaying = () => {
 
   return (
     <div css={WrapStyle}>
-      <Label categoryTheme="현재상영작" />
+      <Label categoryTheme="On The Air" />
       <div css={SlideContainer}>
         <LeftArrowPosition leftArrowToggle={leftArrowToggle}>
           <div onClick={LeftArrowSlide} css={LeftArrow}>
@@ -68,8 +66,8 @@ const NowPlaying = () => {
         </LeftArrowPosition>
 
         <ul css={ContentListUl} ref={contentListSlideWrap}>
-          {moviesNowPlaying?.map((movie) => (
-            <MovieCard key={movie.id} movieItem={movie} />
+          {tvOnTheAir?.map((tv) => (
+            <TvCard key={tv.id} tvItem={tv} />
           ))}
         </ul>
 
@@ -158,4 +156,4 @@ const RightArrowPosition = styled.div`
   transition: all 0.5s ease;
 `;
 
-export default NowPlaying;
+export default OnTheAir;

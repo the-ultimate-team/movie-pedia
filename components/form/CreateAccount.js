@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import Image from "next/image";
 import logo from "../../assets/Logo.png";
-import LoginForm from "./LoginForm";
 
 const CreateAccount = (props) => {
   return (

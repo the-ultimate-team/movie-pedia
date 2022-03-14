@@ -3,10 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Label from "../../Label";
-import Card from "../../Card";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import MovieCard from "../MovieCard";
 
 const API_KEY = "10923b261ba94d897ac6b81148314a3f";
 
@@ -68,7 +68,7 @@ const Popular = () => {
 
           <ul css={ContentListUl} ref={contentListSlideWrap}>
             {moviesPopular?.map((movie) => (
-              <Card key={movie.id} movieItem={movie} />
+              <MovieCard key={movie.id} movieItem={movie} />
             ))}
           </ul>
 

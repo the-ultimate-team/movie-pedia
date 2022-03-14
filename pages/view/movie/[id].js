@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import PosterDetail from "../../../components/PosterDetail";
+import MoviePosterDetail from "../../../components/movieHome/MoviePosterDetail";
 
 const Post = () => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const Post = () => {
   }, [id]);
 
   return (
-    <PosterDetail
+    <MoviePosterDetail
       moiveDetailDataProps={moiveDetailData}
       movieDetailSimilar={movieSimilarData}
     />

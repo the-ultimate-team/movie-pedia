@@ -1,20 +1,20 @@
 import React from "react";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import StarRating from "./StarRating";
+import StarRating from "../StarRating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faPencil,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
-import PosterDetailCommentCard from "./PosterDetailCommentCard";
-import SimilarPosterCard from "./SimilarPosterCard";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import PosterDetailCommentCard from "../PosterDetailCommentCard";
+import SimilarPosterCard from "../SimilarPosterCard";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
 import { useState, useEffect } from "react";
 
-const PosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
+const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
   const [posterShow, setPosterShow] = useState(15);
 
   useEffect(() => {
@@ -424,4 +424,4 @@ const PosterDetailInfoArea = css`
   border-radius: 6px;
 `;
 
-export default PosterDetail;
+export default MoviePosterDetail;

@@ -1,7 +1,7 @@
 import Head from "next/head";
-import ContentListWrap from "../components/ContentListWrap";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import MovieContentListWrap from "../components/MovieContentListWrap";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
       <Navbar />
       <div style={{ marginTop: 82, marginBottom: 82 }}>
-        <ContentListWrap />
+        <MovieContentListWrap />
       </div>
       <Footer />
     </div>
