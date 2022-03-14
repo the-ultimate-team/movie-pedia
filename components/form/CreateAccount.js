@@ -1,10 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+import styled from "@emotion/styled";
 import Image from "next/image";
 import logo from "../../assets/Logo.png";
 
 const CreateAccount = (props) => {
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [nicknameMessage, setNicknameMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+
+  // true : 안보임 / false : 보임
+  const [isNickname, setIsNickname] = useState(true);
+  const [isEmail, setIsEmail] = useState(true);
+  const [isPassword, setIsPassword] = useState(true);
+
+  const onNickname = (e) => {
+    setNickname(e.target.value);
+
+    if (
+      e.target.value !== "" &&
+      (e.target.value.length < 2 || e.target.value.length > 5)
+    ) {
+      setNicknameMessage("2글자 이상 5글자 미만으로 입력해주세요.");
+      setIsNickname(false);
+    } else {
+      setIsNickname(true);
+    }
+  };
+
+  const onEmail = (e) => {
+    const emailRegex =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    setEmail(e.target.value);
+
+    if (e.target.value !== "" && !emailRegex.test(e.target.value)) {
+      setEmailMessage("이메일 형식이 틀렸습니다.");
+      setIsEmail(false);
+    } else {
+      setIsEmail(true);
+    }
+  };
+
+  const onPassword = (e) => {
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    setPassword(e.target.value);
+
+    if (e.target.value !== "" && !passwordRegex.test(password)) {
+      setPasswordMessage(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해야 합니다."
+      );
+      setIsPassword(false);
+    } else {
+      setIsPassword(true);
+    }
+  };
+
+  const onCreateAccount = (e) => {
+    e.preventDefault();
+    if (!isNickname && !isEmail && !isPassword) {
+      return;
+    }
+    sessionStorage.setItem("nickname", nickname);
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("password", password);
+  };
+
   return (
     <div css={CenterPositioinParent}>
       <div css={LoginWrap}>
@@ -16,21 +81,44 @@ const CreateAccount = (props) => {
           </div>
           <h2 css={LoginFontStyle}>회원가입</h2>
           <div>
-            <form>
+            <form onSubmit={onCreateAccount}>
               <div css={InputPadding}>
-                <input css={InputStyle} type="text" placeholder="이름" />
+                <InputStyle
+                  onChange={onNickname}
+                  type="text"
+                  placeholder="이름"
+                  value={nickname}
+                  isValidation={isNickname}
+                />
+                {!isNickname && (
+                  <span css={isNicknameValid}>{nicknameMessage}</span>
+                )}
               </div>
               <div css={InputPadding}>
-                <input css={InputStyle} type="text" placeholder="이메일" />
+                <InputStyle
+                  onChange={onEmail}
+                  type="text"
+                  placeholder="이메일"
+                  value={email}
+                  isValidation={isEmail}
+                />
+                {!isEmail && <span css={isNicknameValid}>{emailMessage}</span>}
               </div>
               <div css={InputPadding}>
-                <input
-                  css={InputStyle}
+                <InputStyle
+                  onChange={onPassword}
                   type="password"
                   placeholder="비밀번호"
+                  value={password}
+                  isValidation={isPassword}
                 />
+                {!isPassword && (
+                  <span css={isNicknameValid}>{passwordMessage}</span>
+                )}
               </div>
-              <button css={ButtonStyle}>회원가입</button>
+              <button type="submit" css={ButtonStyle}>
+                회원가입
+              </button>
             </form>
           </div>
           <div css={AccountSignin}>
@@ -51,6 +139,14 @@ const CreateAccount = (props) => {
     </div>
   );
 };
+
+const isNicknameValid = css`
+  color: red;
+  font-size: 12px;
+  display: block;
+  text-align: left;
+  margin: 6px 12px 4px;
+`;
 
 const LogoCenter = css`
   display: flex;
@@ -110,13 +206,14 @@ const InputPadding = css`
   padding: 4px 0;
 `;
 
-const InputStyle = css`
-  background: rgb(245, 245, 245);
+const InputStyle = styled.input`
+  background: ${(props) =>
+    props.isValidation ? "rgb(245, 245, 245)" : "rgb(255, 240, 240);"};
   width: 100%;
   height: 44px;
   padding: 0 12px;
   border-radius: 6px;
-  border: none;
+  border: ${(props) => (props.isValidation ? "none" : "1px solid red")};
 `;
 
 const ButtonStyle = css`
@@ -133,6 +230,10 @@ const ButtonStyle = css`
   height: 44px;
   border-radius: 6px;
   margin: 16px 0px 0px;
+  :disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
 `;
 
 const AccountSignin = css`
