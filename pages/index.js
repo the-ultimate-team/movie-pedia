@@ -2,6 +2,7 @@ import Head from "next/head";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import MovieContentListWrap from "../components/MovieContentListWrap";
+import CommentForm from "../components/CommentForm";
 
 export default function Home() {
   return (

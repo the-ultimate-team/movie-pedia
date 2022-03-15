@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import StarRating from "../StarRating";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faPencil,
   faAngleDown,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import PosterDetailCommentCard from "../PosterDetailCommentCard";
 import SimilarPosterCard from "../SimilarPosterCard";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
-import { useState, useEffect } from "react";
+import CommentForm from "../CommentForm";
 
 const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
   const [posterShow, setPosterShow] = useState(15);
+  const [commentModalToggle, setCommentModalToggle] = useState(false);
+  const [commentSave, setCommentSave] = useState();
+  const [likeToggle, setLikeToogle] = useState(false);
+  const commentNickname = localStorage.getItem("nickname");
 
   useEffect(() => {
     setPosterShow((prev) => 15);
@@ -38,9 +44,36 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
     setPosterShow((prev) => prev + 5);
   };
 
+  const onCommentModalHandler = () => {
+    setCommentModalToggle((prev) => !commentModalToggle);
+  };
+
+  const getCommentText = (comment) => {
+    setCommentSave({
+      id: Math.random(),
+      comment,
+      nickname: commentNickname,
+    });
+  };
+
+  const onCommentModalClose = () => {
+    setCommentModalToggle((prev) => !commentModalToggle);
+  };
+
+  const onlikeToggle = () => {
+    setLikeToogle((prev) => !likeToggle);
+  };
+
   return (
     <div>
       <Navbar />
+      {commentModalToggle ? (
+        <CommentForm
+          saveComment={getCommentText}
+          onCommentModal={onCommentModalHandler}
+          commentSaveButtonClose={onCommentModalClose}
+        />
+      ) : null}
       <section css={PosterContainer}>
         <div css={PosterBigImage}>
           <img
@@ -82,22 +115,31 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
                 </div>
                 <div css={MiddleLine}></div>
                 <div css={PosterLikeComment}>
-                  <button css={LikeComment}>
-                    <FontAwesomeIcon
-                      css={LikeFontAwesome}
-                      icon={faPlus}
-                      layout="fill"
-                    />
-                    &nbsp; 보고싶어요
-                  </button>
-                  <button css={LikeComment}>
+                  <LikeComment onClick={onlikeToggle} toggle={likeToggle}>
+                    {likeToggle ? (
+                      <FontAwesomeIcon
+                        css={HeartStyle}
+                        icon={faHeart}
+                        layout="fill"
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        css={LikeFontAwesome}
+                        icon={faPlus}
+                        layout="fill"
+                      />
+                    )}
+                    &nbsp; <span>보고싶어요</span>
+                  </LikeComment>
+
+                  <LikeComment onClick={onCommentModalHandler}>
                     <FontAwesomeIcon
                       css={LikeFontAwesome}
                       icon={faPencil}
                       layout="fill"
                     />
                     &nbsp; 코멘트
-                  </button>
+                  </LikeComment>
                 </div>
               </div>
             </div>
@@ -132,7 +174,7 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
               <div css={Line} />
             </div>
           </div>
-          <div>
+          <div style={{ position: "relative" }}>
             <div css={PosterCoomonSort}>
               <div css={CommonSubTitleStyle}>코멘트</div>
               <div css={CommonSubMore}>
@@ -140,8 +182,8 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
               </div>
             </div>
             <div css={PosterCommentCardPadding}>
-              <ul>
-                <PosterDetailCommentCard />
+              <ul css={PosterCommentSort}>
+                <PosterDetailCommentCard commentSubmit={commentSave} />
               </ul>
             </div>
           </div>
@@ -175,6 +217,20 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
     </div>
   );
 };
+
+const HeartStyle = css`
+  color: rgb(255, 47, 110);
+  font-size: 18px;
+`;
+
+const LikeFontAwesome = css`
+  font-size: 18px;
+`;
+
+const PosterCommentSort = css`
+  display: flex;
+  overflow: hidden;
+`;
 
 const SimilarPosterMore = css`
   cursor: pointer;
@@ -238,6 +294,7 @@ const SimilarPosterMargin = css`
 const PosterCommentCardPadding = css`
   margin: 20px;
   width: 100%;
+  overflow-x: hidden;
 `;
 
 const MarginStyle = css`
@@ -375,14 +432,15 @@ const PosterLikeComment = css`
   padding-left: 12px;
 `;
 
-const LikeComment = css`
+const LikeComment = styled.button`
   margin: 0 18px;
   background: none;
   padding: 0px;
   border: none;
   cursor: pointer;
   align-items: center;
-  color: rgb(41, 42, 50);
+  /* color: rgb(41, 42, 50); */
+  color: ${(props) => (props.toggle ? "rgb(255, 47, 110)" : "rgb(41, 42, 50)")};
   letter-spacing: -0.1px;
   text-align: center;
   font-size: 14px;
@@ -394,10 +452,6 @@ const LikeComment = css`
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
   }
-`;
-
-const LikeFontAwesome = css`
-  font-size: 18px;
 `;
 
 const PosterAvgFont = css`

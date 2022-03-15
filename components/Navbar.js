@@ -13,6 +13,8 @@ import Link from "next/link";
 const Navbar = (props) => {
   const [loginModal, setLoginModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
+  const [loginDone, setLoginDone] = useState(false);
+  // const [sinpupFinish, setSignupFinish] = useState(false);
 
   const onLoginModalHandler = () => {
     setLoginModal((prev) => !loginModal);
@@ -24,12 +26,27 @@ const Navbar = (props) => {
     setLoginModal((prev) => false);
   };
 
+  const onSignupFinishModalClose = () => {
+    setSignUpModal((prev) => false);
+  };
+
+  const onLoginFinishModalClose = () => {
+    setLoginModal((prev) => false);
+    setLoginDone((prev) => !loginDone);
+  };
+
+  const onLogoutHandler = () => {
+    alert("로그아웃 되었습니다.");
+    setLoginDone((prev) => !loginDone);
+  };
+
   return (
     <>
       {signUpModal ? (
         <CreateAccount
           onToggleModalHandler={onSignUpModalHandler}
           onToggleLoginFormHandler={onLoginModalHandler}
+          signupDoneRepresh={onSignupFinishModalClose}
         />
       ) : null}
 
@@ -37,6 +54,7 @@ const Navbar = (props) => {
         <LoginForm
           onToggleModalHandler={onLoginModalHandler}
           onToggleSignUpHandler={onSignUpModalHandler}
+          loginDoneRepresh={onLoginFinishModalClose}
         />
       ) : null}
 
@@ -84,9 +102,15 @@ const Navbar = (props) => {
                   </label>
                 </li>
                 <li css={btnLi}>
-                  <button onClick={onLoginModalHandler} css={loginButton}>
-                    로그인
-                  </button>
+                  {loginDone ? (
+                    <button onClick={onLogoutHandler} css={loginButton}>
+                      로그아웃
+                    </button>
+                  ) : (
+                    <button onClick={onLoginModalHandler} css={loginButton}>
+                      로그인
+                    </button>
+                  )}
                 </li>
                 <li css={btnLi}>
                   <button onClick={onSignUpModalHandler} css={borderButton}>

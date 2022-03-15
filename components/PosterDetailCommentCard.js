@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,37 +59,63 @@ const UserInfo = css`
 const CommentPadding = css`
   padding: 15px;
   background-color: rgb(242, 242, 242);
-  width: 33%;
   border-radius: 6px;
 `;
 
-const PosterDetailCommentCard = () => {
+const CommentSize = css`
+  width: 25%;
+  padding: 5px;
+`;
+
+const PosterDetailCommentCard = ({ commentSubmit }) => {
+  const [commentList, setCommentList] = useState([
+    {
+      id: 1,
+      nickname: "탈리아",
+      comment: "재밌네요.",
+    },
+    {
+      id: 2,
+      nickname: "알리스타",
+      comment: "스토리가 탄탄해요.",
+    },
+  ]);
+
+  useEffect(() => {
+    if (commentSubmit)
+      setCommentList((prev) => [...commentList, commentSubmit]);
+  }, [commentSubmit]);
+
   return (
-    <li>
-      <div css={CommentPadding}>
-        <div css={UserInfo}>
-          <div css={UserProfile}></div>
-          <div css={UserNickname}>유저아이디</div>
-        </div>
-        <div css={CommentContent}>댓글 내용</div>
-        <div css={GoodandCommentCount}>
-          <div>
-            <FontAwesomeIcon
-              css={CommonThumbsUpCommentStyle}
-              icon={faThumbsUp}
-              layout="fill"
-            />
+    <>
+      {commentList.map((comment) => (
+        <li css={CommentSize} key={comment.id}>
+          <div css={CommentPadding}>
+            <div css={UserInfo}>
+              <div css={UserProfile}></div>
+              <div css={UserNickname}>{comment.nickname}</div>
+            </div>
+            <div css={CommentContent}>{comment.comment}</div>
+            <div css={GoodandCommentCount}>
+              <div>
+                <FontAwesomeIcon
+                  css={CommonThumbsUpCommentStyle}
+                  icon={faThumbsUp}
+                  layout="fill"
+                />
+              </div>
+              <div>
+                <FontAwesomeIcon
+                  css={CommonThumbsUpCommentStyle}
+                  icon={faComment}
+                  layout="fill"
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            <FontAwesomeIcon
-              css={CommonThumbsUpCommentStyle}
-              icon={faComment}
-              layout="fill"
-            />
-          </div>
-        </div>
-      </div>
-    </li>
+        </li>
+      ))}
+    </>
   );
 };
 

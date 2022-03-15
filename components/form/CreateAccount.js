@@ -47,7 +47,7 @@ const CreateAccount = (props) => {
 
   const onPassword = (e) => {
     const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,25}$/;
     setPassword(e.target.value);
 
     if (e.target.value !== "" && !passwordRegex.test(password)) {
@@ -62,12 +62,20 @@ const CreateAccount = (props) => {
 
   const onCreateAccount = (e) => {
     e.preventDefault();
-    if (!isNickname && !isEmail && !isPassword) {
+    if (!isNickname || !isEmail || !isPassword) {
+      alert("입력하신 정보가 틀렸습니다.");
       return;
     }
-    sessionStorage.setItem("nickname", nickname);
-    sessionStorage.setItem("email", email);
-    sessionStorage.setItem("password", password);
+    if (nickname === "" || email === "" || password === "") {
+      alert("회원정보를 입력해주세요.");
+      return;
+    }
+    localStorage.setItem("nickname", nickname);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+
+    alert("회원가입이 완료되었습니다.");
+    props.signupDoneRepresh();
   };
 
   return (
@@ -230,10 +238,6 @@ const ButtonStyle = css`
   height: 44px;
   border-radius: 6px;
   margin: 16px 0px 0px;
-  :disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
 `;
 
 const AccountSignin = css`

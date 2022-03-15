@@ -3,9 +3,35 @@ import React, { useState } from "react";
 import { css, jsx } from "@emotion/react";
 import Image from "next/image";
 import logo from "../../assets/Logo.png";
-import CreateAccount from "./CreateAccount";
 
 const LoginForm = (props) => {
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputPassword, setInputPassword] = useState("");
+
+  const userNickname = localStorage.getItem("nickname");
+  const userEmail = localStorage.getItem("email");
+  const userPassword = localStorage.getItem("password");
+
+  const onChangeEmail = (e) => {
+    setInputEmail(e.target.value);
+  };
+
+  const onChangePassword = (e) => {
+    setInputPassword(e.target.value);
+  };
+
+  const UserLogin = (e) => {
+    e.preventDefault();
+
+    if (userEmail !== inputEmail || userPassword !== inputPassword) {
+      alert("회원정보가 잘못되었습니다.");
+      return;
+    }
+
+    alert(`${userNickname}님 환영합니다.`);
+    props.loginDoneRepresh();
+  };
+
   return (
     <div css={CenterPositioinParent}>
       <div css={LoginWrap}>
@@ -17,18 +43,28 @@ const LoginForm = (props) => {
           </div>
           <h2 css={LoginFontStyle}>로그인</h2>
           <div>
-            <form>
+            <form onSubmit={UserLogin}>
               <div css={InputPadding}>
-                <input css={InputStyle} type="text" placeholder="이메일" />
+                <input
+                  css={InputStyle}
+                  type="text"
+                  placeholder="이메일"
+                  value={inputEmail}
+                  onChange={onChangeEmail}
+                />
               </div>
               <div css={InputPadding}>
                 <input
                   css={InputStyle}
                   type="password"
                   placeholder="비밀번호"
+                  value={inputPassword}
+                  onChange={onChangePassword}
                 />
               </div>
-              <button css={ButtonStyle}>로그인</button>
+              <button type="submit" css={ButtonStyle}>
+                로그인
+              </button>
             </form>
           </div>
           <div css={AccountSignin}>
