@@ -439,7 +439,6 @@ const LikeComment = styled.button`
   border: none;
   cursor: pointer;
   align-items: center;
-  /* color: rgb(41, 42, 50); */
   color: ${(props) => (props.toggle ? "rgb(255, 47, 110)" : "rgb(41, 42, 50)")};
   letter-spacing: -0.1px;
   text-align: center;
