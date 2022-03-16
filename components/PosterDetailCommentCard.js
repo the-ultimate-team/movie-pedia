@@ -4,6 +4,58 @@ import { css, jsx } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faComment } from "@fortawesome/free-solid-svg-icons";
 
+const PosterDetailCommentCard = ({ commentSubmit }) => {
+  const [commentList, setCommentList] = useState([
+    {
+      id: 1,
+      nickname: "탈리아",
+      comment: "재밌네요.",
+    },
+    {
+      id: 2,
+      nickname: "알리스타",
+      comment: "스토리가 탄탄해요.",
+    },
+  ]);
+
+  useEffect(() => {
+    if (commentSubmit)
+      setCommentList((prev) => [...commentList, commentSubmit]);
+  }, [commentSubmit]);
+
+  return (
+    <>
+      {commentList.map((comment) => (
+        <li css={CommentSize} key={comment.id}>
+          <div css={CommentPadding}>
+            <div css={UserInfo}>
+              <div css={UserProfile}></div>
+              <div css={UserNickname}>{comment.nickname}</div>
+            </div>
+            <div css={CommentContent}>{comment.comment}</div>
+            <div css={GoodandCommentCount}>
+              <div>
+                <FontAwesomeIcon
+                  css={CommonThumbsUpCommentStyle}
+                  icon={faThumbsUp}
+                  layout="fill"
+                />
+              </div>
+              <div>
+                <FontAwesomeIcon
+                  css={CommonThumbsUpCommentStyle}
+                  icon={faComment}
+                  layout="fill"
+                />
+              </div>
+            </div>
+          </div>
+        </li>
+      ))}
+    </>
+  );
+};
+
 const CommonThumbsUpCommentStyle = css`
   background-size: contain;
   width: 18px;
@@ -66,57 +118,5 @@ const CommentSize = css`
   width: 25%;
   padding: 5px;
 `;
-
-const PosterDetailCommentCard = ({ commentSubmit }) => {
-  const [commentList, setCommentList] = useState([
-    {
-      id: 1,
-      nickname: "탈리아",
-      comment: "재밌네요.",
-    },
-    {
-      id: 2,
-      nickname: "알리스타",
-      comment: "스토리가 탄탄해요.",
-    },
-  ]);
-
-  useEffect(() => {
-    if (commentSubmit)
-      setCommentList((prev) => [...commentList, commentSubmit]);
-  }, [commentSubmit]);
-
-  return (
-    <>
-      {commentList.map((comment) => (
-        <li css={CommentSize} key={comment.id}>
-          <div css={CommentPadding}>
-            <div css={UserInfo}>
-              <div css={UserProfile}></div>
-              <div css={UserNickname}>{comment.nickname}</div>
-            </div>
-            <div css={CommentContent}>{comment.comment}</div>
-            <div css={GoodandCommentCount}>
-              <div>
-                <FontAwesomeIcon
-                  css={CommonThumbsUpCommentStyle}
-                  icon={faThumbsUp}
-                  layout="fill"
-                />
-              </div>
-              <div>
-                <FontAwesomeIcon
-                  css={CommonThumbsUpCommentStyle}
-                  icon={faComment}
-                  layout="fill"
-                />
-              </div>
-            </div>
-          </div>
-        </li>
-      ))}
-    </>
-  );
-};
 
 export default PosterDetailCommentCard;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -77,6 +77,19 @@ const CreateAccount = (props) => {
     alert("회원가입이 완료되었습니다.");
     props.signupDoneRepresh();
   };
+
+  useEffect(() => {
+    document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   return (
     <div css={CenterPositioinParent}>
@@ -190,10 +203,10 @@ const LoginWrap = css`
   text-align: center;
   background: rgb(255, 255, 255);
   padding: 0 18px;
-  position: absolute;
-  top: calc(50vh - 270px - 82px); //브라우저 절반 - 자기 자신 높이 절반 - 헤더
+  position: fixed;
+  top: calc(50vh - 270px); //브라우저 절반 - 자기 자신 높이 절반
   left: calc(50% - 187.5px); //브라우저 절반 - 자신 너비 절반
-  box-shadow: rgb(0 0 0 / 12%) 0 0 6px 0;
+  box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
   z-index: 101;
 `;
 

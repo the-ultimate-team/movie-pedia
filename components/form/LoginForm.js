@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import Image from "next/image";
@@ -11,6 +11,19 @@ const LoginForm = (props) => {
   const userNickname = localStorage.getItem("nickname");
   const userEmail = localStorage.getItem("email");
   const userPassword = localStorage.getItem("password");
+
+  useEffect(() => {
+    document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   const onChangeEmail = (e) => {
     setInputEmail(e.target.value);
@@ -31,6 +44,9 @@ const LoginForm = (props) => {
     alert(`${userNickname}님 환영합니다.`);
     props.loginDoneRepresh();
   };
+
+  console.log(window.innerWidth);
+  console.log(window.innerHeight);
 
   return (
     <div css={CenterPositioinParent}>
@@ -118,10 +134,10 @@ const LoginWrap = css`
   text-align: center;
   background: rgb(255, 255, 255);
   padding: 0 18px;
-  position: absolute;
-  top: calc(50vh - 270px - 82px); //브라우저 절반 - 자기 자신 높이 절반 - 헤더
+  position: fixed;
+  top: calc(50vh - 270px); //브라우저 절반 - 자기 자신 높이 절반
   left: calc(50% - 187.5px); //브라우저 절반 - 자신 너비 절반
-  box-shadow: rgb(0 0 0 / 12%) 0 0 6px 0;
+  box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
   z-index: 101;
 `;
 

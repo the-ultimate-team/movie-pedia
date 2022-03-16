@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,19 @@ const CommentForm = (props) => {
     props.saveComment(comment);
     props.commentSaveButtonClose();
   };
+
+  useEffect(() => {
+    document.body.style.cssText = `
+    position: fixed; 
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   return (
     <div css={CenterPositioinParent}>
@@ -126,8 +139,8 @@ const TitleXmarkSort = css`
 
 const CommentSize = css`
   display: inline-block;
-  position: absolute;
-  top: calc(50vh - 130px - 82px); //브라우저 절반 - 자기 자신 높이 절반 - 헤더
+  position: fixed;
+  top: calc(50vh - 230px); //브라우저 절반 - 자기 자신 높이 절반
   left: calc(50% - 240px); //브라우저 절반 - 자신 너비 절반
   width: 480px;
   height: auto;
@@ -136,7 +149,7 @@ const CommentSize = css`
   border-radius: 6px;
   overflow: auto;
   background: rgb(255, 255, 255);
-  box-shadow: rgb(0 0 0 / 12%) 0px 0px 6px 0px;
+  box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
   z-index: 101;
 `;
 
