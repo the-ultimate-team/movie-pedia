@@ -76,10 +76,13 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
       ) : null}
       <section css={PosterContainer}>
         <div css={PosterBigImage}>
-          <img
+          {/* <img
             css={PosterBigImageStyle}
             src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
             alt="image"
+          /> */}
+          <BackgroundImage
+            url={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
           />
         </div>
         <div css={PosterBasicInfoContainer}>
@@ -266,17 +269,10 @@ const SimilarPosterFlex = css`
   justify-content: space-between;
 `;
 
-const PosterBigImageStyle = css`
-  width: 100%;
-  height: 100%;
-  /* object-fit: contain; */
-`;
-
 const PosterImageStyle = css`
   /* vertical-align: top; */
   width: 100%;
   height: 100%;
-  opacity: 1;
   /* object-fit: cover; */
 `;
 
@@ -355,10 +351,38 @@ const PosterContainer = css`
 
 const PosterBigImage = css`
   width: 100%;
-  height: 509px;
+  height: 500px;
   min-height: 209px;
   /* padding-top: 300px; */
-  background-color: gray;
+  background-color: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+`;
+
+const BackgroundImage = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 209px;
+  filter: blur(2px);
+  background: linear-gradient(
+            to right,
+            rgba(20, 20, 20, 0) 10%,
+            rgba(20, 20, 20, 0.25) 25%,
+            rgba(20, 20, 20, 0.5) 50%,
+            rgba(20, 20, 20, 0.75) 75%,
+            rgba(20, 20, 20, 1) 100%
+          ),
+    url(${(props) => props.url});
+    background-size: cover;
+}
+;
+`;
+const PosterBigImageStyle = css`
+  /* width: 50%;
+  height: 50%; */
+  /* object-fit: contain; */
+  width: 60%;
 `;
 
 const PosterBasicInfoContainer = css`

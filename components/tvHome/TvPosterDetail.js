@@ -138,7 +138,7 @@ const PosterDetail = ({ tvDetailDataProps, tvDetailSimilar }) => {
               </div>
             </div>
             <div css={PosterCommentCardPadding}>
-              <ul>
+              <ul css={PosterCommentSort}>
                 <PosterDetailCommentCard />
               </ul>
             </div>
@@ -173,6 +173,11 @@ const PosterDetail = ({ tvDetailDataProps, tvDetailSimilar }) => {
     </div>
   );
 };
+
+const PosterCommentSort = css`
+  display: flex;
+  overflow: hidden;
+`;
 
 const SimilarPosterMore = css`
   cursor: pointer;
