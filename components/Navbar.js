@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+import styled from "@emotion/styled";
 import Image from "next/image";
 import logo from "../assets/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,7 +40,7 @@ const Navbar = (props) => {
         />
       ) : null}
 
-      <header css={navContainer}>
+      <NavContainer transparent={true}>
         <nav>
           <div>
             <Container>
@@ -48,10 +49,10 @@ const Navbar = (props) => {
                   <Image src={logo} alt="logo" layout="fill" />
                 </li>
                 <li css={btnLi}>
-                  <button css={basicButton}>영화</button>
+                  <BasicButton>영화</BasicButton>
                 </li>
                 <li css={btnLi}>
-                  <button css={basicButton}>TV</button>
+                  <BasicButton>TV</BasicButton>
                 </li>
                 <li css={searchLi}>
                   <label css={searchInput}>
@@ -84,17 +85,17 @@ const Navbar = (props) => {
             </Container>
           </div>
         </nav>
-      </header>
+      </NavContainer>
     </>
   );
 };
 
-const navContainer = css`
+const NavContainer = styled.header`
   position: fixed;
   top: 0px;
   left: 0;
   z-index: 51;
-  background: #fff;
+  background: ${(props) => (props.transparent ? "transparent" : "#fff")};
   color: #fff;
   text-align: center;
   width: 100%;
@@ -161,7 +162,7 @@ const inputStyle = css`
   text-overflow: ellipsis;
   caret-color: #353535;
 `;
-const basicButton = css`
+const BasicButton = styled.button`
   background: none;
   padding: 0;
   border: none;
@@ -172,7 +173,14 @@ const basicButton = css`
   letter-spacing: -0.3px;
 `;
 const loginButton = css`
-  ${basicButton}
+  background: none;
+  padding: 0;
+  border: none;
+  margin: 0;
+  cursor: pointer;
+  color: #353535;
+  font-size: 15px;
+  letter-spacing: -0.3px;
   color: #74747b;
   font-size: 15px;
 `;
