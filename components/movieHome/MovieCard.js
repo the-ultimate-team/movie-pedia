@@ -14,6 +14,7 @@ const MovieCard = ({ movieItem }) => {
               src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
               alt="image"
             />
+
             <div css={TitleStyle}>{original_title}</div>
             <div css={YearNationSort}>
               <div css={YearNationStyle}>개봉일&nbsp;</div>
@@ -29,6 +30,10 @@ const MovieCard = ({ movieItem }) => {
     </li>
   );
 };
+
+const PosterImageSize = css`
+  min-height: 372px;
+`;
 
 const ContentLi = css`
   width: 20%;

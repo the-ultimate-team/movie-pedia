@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -15,6 +15,7 @@ import SimilarPosterCard from "../SimilarPosterCard";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import CommentForm from "../CommentForm";
+import { throttle } from "lodash";
 
 const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
   const [posterShow, setPosterShow] = useState(15);
@@ -22,6 +23,30 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
   const [commentSave, setCommentSave] = useState();
   const [likeToggle, setLikeToogle] = useState(false);
   const commentNickname = localStorage.getItem("nickname");
+  const [navbarTransColor, setNavbarTransColor] = useState(true);
+
+  const handleScroll = useMemo(
+    () =>
+      throttle(() => {
+        console.log(window.scrollY);
+        if (window.scrollY >= 100) {
+          setNavbarTransColor(false);
+        } else {
+          setNavbarTransColor(true);
+        }
+      }, 300),
+    []
+  );
+
+  useEffect(() => {
+    function scrollListener() {
+      window.addEventListener("scroll", handleScroll);
+    } //  window 에서 스크롤을 감시 시작
+    scrollListener(); // window 에서 스크롤을 감시
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }; //  window 에서 스크롤을 감시를 종료
+  });
 
   useEffect(() => {
     setPosterShow((prev) => 15);
@@ -66,7 +91,7 @@ const MoviePosterDetail = ({ moiveDetailDataProps, movieDetailSimilar }) => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar navbarTrans={navbarTransColor} />
       {commentModalToggle ? (
         <CommentForm
           saveComment={getCommentText}
@@ -351,7 +376,7 @@ const PosterContainer = css`
 
 const PosterBigImage = css`
   width: 100%;
-  height: 500px;
+  height: 394px;
   min-height: 209px;
   /* padding-top: 300px; */
   background-color: black;

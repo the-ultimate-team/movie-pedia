@@ -4,6 +4,7 @@ import { css, jsx } from "@emotion/react";
 import styled from "@emotion/styled";
 import Image from "next/image";
 import logo from "../assets/Logo.png";
+import logoWhite from "../assets/LogoWhite.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Container from "./responsiveLayout/Container";
@@ -59,7 +60,7 @@ const Navbar = (props) => {
         />
       ) : null}
 
-      <NavContainer transparent={true}>
+      <NavContainer transparent={props.navbarTrans}>
         <nav>
           <div>
             <Container>
@@ -67,7 +68,11 @@ const Navbar = (props) => {
                 <li css={logoStyle}>
                   <Link href="/">
                     <a>
-                      <Image src={logo} alt="logo" layout="fill" />
+                      {props.navbarTrans ? (
+                        <Image src={logoWhite} alt="logo" layout="fill" />
+                      ) : (
+                        <Image src={logo} alt="logo" layout="fill" />
+                      )}
                     </a>
                   </Link>
                 </li>
@@ -138,6 +143,26 @@ const NavContainer = styled.header`
   width: 100%;
   height: 62px;
   box-shadow: 0 1px 0 0 rgb(0 0 0 / 8%);
+
+  ${(props) =>
+    props.transparent &&
+    css`
+      & button {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      & label {
+        background: transparent;
+        color: rgb(255, 255, 255);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      & input {
+        ::placeholder {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    `}
 `;
 
 const menuStyle = css`
@@ -185,9 +210,6 @@ const searchIcon = css`
 const inputStyle = css`
   font-size: 14px;
   font-weight: 400;
-  -webkit-letter-spacing: -0.3px;
-  -moz-letter-spacing: -0.3px;
-  -ms-letter-spacing: -0.3px;
   letter-spacing: -0.3px;
   line-height: 23px;
   background: transparent;
@@ -199,6 +221,7 @@ const inputStyle = css`
   text-overflow: ellipsis;
   caret-color: #353535;
 `;
+
 const BasicButton = styled.button`
   background: none;
   padding: 0;
