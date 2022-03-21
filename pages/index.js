@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div style={{ marginTop: 82, marginBottom: 82 }}>
+      <div style={{ marginTop: "82px" }}>
         <MovieContentListWrap />
       </div>
       <Footer />

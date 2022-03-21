@@ -11,11 +11,13 @@ import Container from "./responsiveLayout/Container";
 import LoginForm from "./form/LoginForm";
 import CreateAccount from "./form/CreateAccount";
 import Link from "next/link";
+import router from "next/router";
 
 const Navbar = (props) => {
   const [loginModal, setLoginModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
   const [loginDone, setLoginDone] = useState(false);
+  const [search, setSearch] = useState("");
   // const [sinpupFinish, setSignupFinish] = useState(false);
 
   const onLoginModalHandler = () => {
@@ -40,6 +42,21 @@ const Navbar = (props) => {
   const onLogoutHandler = () => {
     alert("로그아웃 되었습니다.");
     setLoginDone((prev) => !loginDone);
+  };
+
+  const onSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const onHandleSearchKeyPress = (e) => {
+    if (e.key === "Enter") {
+      router.push({
+        pathname: "/search",
+        query: {
+          search,
+        },
+      });
+    }
   };
 
   return (
@@ -102,7 +119,9 @@ const Navbar = (props) => {
                       autoComplete="off"
                       placeholder="콘텐츠, 인물, 컬렉션, 유저를 검색해보세요."
                       name="searchKeyword"
-                      value=""
+                      value={search}
+                      onChange={onSearch}
+                      onKeyPress={onHandleSearchKeyPress}
                       css={inputStyle}
                     />
                   </label>
