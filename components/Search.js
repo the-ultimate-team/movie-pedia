@@ -4,6 +4,7 @@ import { css, jsx } from "@emotion/react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SearchResult from "./SearchResult";
 import { useRouter } from "next/router";
 import Label from "./Label";
 import Container from "./responsiveLayout/Container";
@@ -15,6 +16,7 @@ const Search = () => {
   const { search } = router.query;
   const [movieFilter, setMovieFilter] = useState();
   const [tvFilter, setTvFilter] = useState();
+  const [searchValueNothing, setSearchValueNothing] = useState(false);
   const [posterShow, setPosterShow] = useState(10);
   const [tvShow, setTvShow] = useState(10);
 
@@ -51,89 +53,104 @@ const Search = () => {
 
   return (
     <>
-      <Navbar />
-      <div css={SearchResult}></div>
+      <Navbar searchValueProps={search} />
+      <div css={SearchResultWrap}></div>
       <Container>
         <p css={SearchResultFont}>{`"${search}" 의 검색결과`}</p>
         <div style={{ marginTop: "22px" }}>
           <Label categoryTheme="Movie" />
-          <div css={SearchWrapper}>
-            {movieFilter
-              ?.filter((_, index) => index < posterShow)
-              .map((searchItem) => (
-                <>
-                  <div css={PosterSize}>
-                    <div>
-                      <img
-                        css={ImageSize}
-                        src={`https://image.tmdb.org/t/p/w500/${searchItem.poster_path}`}
-                        alt="image"
-                      />
-                    </div>
-                    <div css={TitleStyle}>{searchItem.title}</div>
-                    <div css={CountryLanguage}>
-                      <div css={CountryStyle}>{searchItem.release_date}</div> ・
-                      <div css={CountryStyle}>
-                        {searchItem.original_language}
-                      </div>
-                    </div>
+          {movieFilter?.length === 0 ? (
+            <SearchResult />
+          ) : (
+            <>
+              <div css={SearchWrapper}>
+                {movieFilter
+                  ?.filter((_, index) => index < posterShow)
+                  .map((searchItem) => (
+                    <>
+                      <div css={PosterSize}>
+                        <div>
+                          <img
+                            css={ImageSize}
+                            src={`https://image.tmdb.org/t/p/w500/${searchItem.poster_path}`}
+                            alt="image"
+                          />
+                        </div>
+                        <div css={TitleStyle}>{searchItem.title}</div>
+                        <div css={CountryLanguage}>
+                          <div css={CountryStyle}>
+                            {searchItem.release_date}
+                          </div>{" "}
+                          ・
+                          <div css={CountryStyle}>
+                            {searchItem.original_language}
+                          </div>
+                        </div>
 
-                    <div css={CountryStyle}>{searchItem.media_type}</div>
-                  </div>
-                </>
-              ))}
-          </div>
-          <div style={{ marginTop: "30px" }}>
-            {movieFilter?.length <= posterShow ? null : (
-              <button onClick={NumberOfShowMore} css={SimilarPosterMore}>
-                더보기&nbsp;
-                <FontAwesomeIcon icon={faAngleDown} layout="fill" />
-              </button>
-            )}
-          </div>
+                        <div css={CountryStyle}>{searchItem.media_type}</div>
+                      </div>
+                    </>
+                  ))}
+              </div>
+              <div style={{ marginTop: "30px" }}>
+                {movieFilter?.length <= posterShow ? null : (
+                  <button onClick={NumberOfShowMore} css={SimilarPosterMore}>
+                    더보기&nbsp;
+                    <FontAwesomeIcon icon={faAngleDown} layout="fill" />
+                  </button>
+                )}
+              </div>
+            </>
+          )}
 
           <div css={Line} />
 
           <Label categoryTheme="TV프로그램" />
-          <div css={SearchWrapper}>
-            {tvFilter
-              ?.filter((_, index) => index < tvShow)
-              .map((searchItem) => (
-                <>
-                  <div css={PosterSize}>
-                    <div>
-                      <img
-                        css={ImageSize}
-                        src={`https://image.tmdb.org/t/p/w500/${searchItem.poster_path}`}
-                        alt="image"
-                      />
-                    </div>
-                    <div css={TitleStyle}>{searchItem.name}</div>
-                    <div css={CountryLanguage}>
-                      <div css={CountryStyle}>
-                        {searchItem.first_air_date
-                          ? searchItem.first_air_date
-                          : "upcoming"}
-                      </div>
-                      ・
-                      <div css={CountryStyle}>
-                        {searchItem.original_language}
-                      </div>
-                    </div>
+          {tvFilter?.length === 0 ? (
+            <SearchResult />
+          ) : (
+            <>
+              <div css={SearchWrapper}>
+                {tvFilter
+                  ?.filter((_, index) => index < tvShow)
+                  .map((searchItem) => (
+                    <>
+                      <div css={PosterSize}>
+                        <div>
+                          <img
+                            css={ImageSize}
+                            src={`https://image.tmdb.org/t/p/w500/${searchItem.poster_path}`}
+                            alt="image"
+                          />
+                        </div>
+                        <div css={TitleStyle}>{searchItem.name}</div>
+                        <div css={CountryLanguage}>
+                          <div css={CountryStyle}>
+                            {searchItem.first_air_date
+                              ? searchItem.first_air_date
+                              : "upcoming"}
+                          </div>
+                          ・
+                          <div css={CountryStyle}>
+                            {searchItem.original_language}
+                          </div>
+                        </div>
 
-                    <div css={CountryStyle}>{searchItem.media_type}</div>
-                  </div>
-                </>
-              ))}
-          </div>
-          <div style={{ marginTop: "30px" }}>
-            {tvFilter?.length <= tvShow ? null : (
-              <button onClick={NumberOfTvShowMore} css={SimilarPosterMore}>
-                더보기&nbsp;
-                <FontAwesomeIcon icon={faAngleDown} layout="fill" />
-              </button>
-            )}
-          </div>
+                        <div css={CountryStyle}>{searchItem.media_type}</div>
+                      </div>
+                    </>
+                  ))}
+              </div>
+              <div style={{ marginTop: "30px" }}>
+                {tvFilter?.length <= tvShow ? null : (
+                  <button onClick={NumberOfTvShowMore} css={SimilarPosterMore}>
+                    더보기&nbsp;
+                    <FontAwesomeIcon icon={faAngleDown} layout="fill" />
+                  </button>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </Container>
       <Footer />
@@ -159,7 +176,7 @@ const SearchResultFont = css`
   top: 70px;
 `;
 
-const SearchResult = css`
+const SearchResultWrap = css`
   background: rgb(247, 247, 247);
   width: 100%;
   height: 43px;
