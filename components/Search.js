@@ -53,7 +53,7 @@ const Search = () => {
 
   return (
     <>
-      <Navbar searchValueProps={search} />
+      <Navbar />
       <div css={SearchResultWrap}></div>
       <Container>
         <p css={SearchResultFont}>{`"${search}" 의 검색결과`}</p>
